@@ -1,14 +1,19 @@
 /* =========================================================
    BIBLIA 365
-   JAVASCRIPT
+   Seguimiento de lectura física de la Biblia
+========================================================= */
+
+
+/* =========================================================
+   CONFIGURACIÓN
 ========================================================= */
 
 const TOTAL_DAYS = 365;
 const TOTAL_CHAPTERS = 1189;
 
-const STORAGE_KEY = "biblia-en-un-ano-v3";
-const OLD_STORAGE_KEY = "biblia-en-un-ano-v2";
+const STORAGE_KEY = "biblia-en-un-ano-v2";
 const THEME_KEY = "biblia-en-un-ano-theme";
+const START_DATE_KEY = "biblia-en-un-ano-start-date";
 
 
 /* =========================================================
@@ -17,96 +22,94 @@ const THEME_KEY = "biblia-en-un-ano-theme";
 
 const BOOKS = [
 
-    ["Génesis", 50],
-    ["Éxodo", 40],
-    ["Levítico", 27],
-    ["Números", 36],
-    ["Deuteronomio", 34],
-    ["Josué", 24],
-    ["Jueces", 21],
-    ["Rut", 4],
-    ["1 Samuel", 31],
-    ["2 Samuel", 24],
-    ["1 Reyes", 22],
-    ["2 Reyes", 25],
-    ["1 Crónicas", 29],
-    ["2 Crónicas", 36],
-    ["Esdras", 10],
-    ["Nehemías", 13],
-    ["Ester", 10],
-    ["Job", 42],
-    ["Salmos", 150],
-    ["Proverbios", 31],
-    ["Eclesiastés", 12],
-    ["Cantares", 8],
-    ["Isaías", 66],
-    ["Jeremías", 52],
-    ["Lamentaciones", 5],
-    ["Ezequiel", 48],
-    ["Daniel", 12],
-    ["Oseas", 14],
-    ["Joel", 3],
-    ["Amós", 9],
-    ["Abdías", 1],
-    ["Jonás", 4],
-    ["Miqueas", 7],
-    ["Nahúm", 3],
-    ["Habacuc", 3],
-    ["Sofonías", 3],
-    ["Hageo", 2],
-    ["Zacarías", 14],
-    ["Malaquías", 4],
+    { name: "Génesis", chapters: 50 },
+    { name: "Éxodo", chapters: 40 },
+    { name: "Levítico", chapters: 27 },
+    { name: "Números", chapters: 36 },
+    { name: "Deuteronomio", chapters: 34 },
+    { name: "Josué", chapters: 24 },
+    { name: "Jueces", chapters: 21 },
+    { name: "Rut", chapters: 4 },
+    { name: "1 Samuel", chapters: 31 },
+    { name: "2 Samuel", chapters: 24 },
+    { name: "1 Reyes", chapters: 22 },
+    { name: "2 Reyes", chapters: 25 },
+    { name: "1 Crónicas", chapters: 29 },
+    { name: "2 Crónicas", chapters: 36 },
+    { name: "Esdras", chapters: 10 },
+    { name: "Nehemías", chapters: 13 },
+    { name: "Ester", chapters: 10 },
+    { name: "Job", chapters: 42 },
+    { name: "Salmos", chapters: 150 },
+    { name: "Proverbios", chapters: 31 },
+    { name: "Eclesiastés", chapters: 12 },
+    { name: "Cantares", chapters: 8 },
+    { name: "Isaías", chapters: 66 },
+    { name: "Jeremías", chapters: 52 },
+    { name: "Lamentaciones", chapters: 5 },
+    { name: "Ezequiel", chapters: 48 },
+    { name: "Daniel", chapters: 12 },
+    { name: "Oseas", chapters: 14 },
+    { name: "Joel", chapters: 3 },
+    { name: "Amós", chapters: 9 },
+    { name: "Abdías", chapters: 1 },
+    { name: "Jonás", chapters: 4 },
+    { name: "Miqueas", chapters: 7 },
+    { name: "Nahúm", chapters: 3 },
+    { name: "Habacuc", chapters: 3 },
+    { name: "Sofonías", chapters: 3 },
+    { name: "Hageo", chapters: 2 },
+    { name: "Zacarías", chapters: 14 },
+    { name: "Malaquías", chapters: 4 },
 
-    ["Mateo", 28],
-    ["Marcos", 16],
-    ["Lucas", 24],
-    ["Juan", 21],
-    ["Hechos", 28],
-    ["Romanos", 16],
-    ["1 Corintios", 16],
-    ["2 Corintios", 13],
-    ["Gálatas", 6],
-    ["Efesios", 6],
-    ["Filipenses", 4],
-    ["Colosenses", 4],
-    ["1 Tesalonicenses", 5],
-    ["2 Tesalonicenses", 3],
-    ["1 Timoteo", 6],
-    ["2 Timoteo", 4],
-    ["Tito", 3],
-    ["Filemón", 1],
-    ["Hebreos", 13],
-    ["Santiago", 5],
-    ["1 Pedro", 5],
-    ["2 Pedro", 3],
-    ["1 Juan", 5],
-    ["2 Juan", 1],
-    ["3 Juan", 1],
-    ["Judas", 1],
-    ["Apocalipsis", 22]
+    { name: "Mateo", chapters: 28 },
+    { name: "Marcos", chapters: 16 },
+    { name: "Lucas", chapters: 24 },
+    { name: "Juan", chapters: 21 },
+    { name: "Hechos", chapters: 28 },
+    { name: "Romanos", chapters: 16 },
+    { name: "1 Corintios", chapters: 16 },
+    { name: "2 Corintios", chapters: 13 },
+    { name: "Gálatas", chapters: 6 },
+    { name: "Efesios", chapters: 6 },
+    { name: "Filipenses", chapters: 4 },
+    { name: "Colosenses", chapters: 4 },
+    { name: "1 Tesalonicenses", chapters: 5 },
+    { name: "2 Tesalonicenses", chapters: 3 },
+    { name: "1 Timoteo", chapters: 6 },
+    { name: "2 Timoteo", chapters: 4 },
+    { name: "Tito", chapters: 3 },
+    { name: "Filemón", chapters: 1 },
+    { name: "Hebreos", chapters: 13 },
+    { name: "Santiago", chapters: 5 },
+    { name: "1 Pedro", chapters: 5 },
+    { name: "2 Pedro", chapters: 3 },
+    { name: "1 Juan", chapters: 5 },
+    { name: "2 Juan", chapters: 1 },
+    { name: "3 Juan", chapters: 1 },
+    { name: "Judas", chapters: 1 },
+    { name: "Apocalipsis", chapters: 22 }
+
 ];
 
 
 /* =========================================================
-   VARIABLES
+   ESTADO
 ========================================================= */
 
 let chapters = [];
-
 let readingPlan = [];
 
 let selectedDay = 1;
 
+let startDate = null;
 
-let state = {
 
-    startDate: null,
+/* =========================================================
+   ELEMENTOS DOM
+========================================================= */
 
-    chapters: [],
-
-    selectedDay: 1
-
-};
+const $ = id => document.getElementById(id);
 
 
 /* =========================================================
@@ -119,28 +122,19 @@ function buildChapters() {
 
     let id = 1;
 
+    BOOKS.forEach(book => {
 
-    BOOKS.forEach(([book, chapterCount]) => {
-
-        for (
-            let chapter = 1;
-            chapter <= chapterCount;
-            chapter++
-        ) {
+        for (let chapter = 1; chapter <= book.chapters; chapter++) {
 
             chapters.push({
-
                 id: id,
-
-                book: book,
-
+                book: book.name,
                 chapter: chapter,
-
                 read: false
-
             });
 
             id++;
+
         }
 
     });
@@ -149,7 +143,7 @@ function buildChapters() {
 
 
 /* =========================================================
-   CONSTRUIR PLAN DE 365 DÍAS
+   CONSTRUIR PLAN
 ========================================================= */
 
 function buildReadingPlan() {
@@ -158,30 +152,20 @@ function buildReadingPlan() {
 
     let chapterIndex = 0;
 
-
     /*
-       1189 capítulos / 365 días.
+        1189 capítulos / 365 días.
 
-       94 días tendrán 4 capítulos.
-       271 días tendrán 3 capítulos.
+        94 días tendrán 4 capítulos.
+        271 días tendrán 3 capítulos.
+
+        94 × 4 = 376
+        271 × 3 = 813
+        376 + 813 = 1189
     */
 
-    const extraDays =
-        TOTAL_CHAPTERS -
-        (TOTAL_DAYS * 3);
+    for (let day = 1; day <= TOTAL_DAYS; day++) {
 
-
-    for (
-        let day = 1;
-        day <= TOTAL_DAYS;
-        day++
-    ) {
-
-        const chaptersForDay =
-            day <= extraDays
-                ? 4
-                : 3;
-
+        const chaptersForDay = day <= 94 ? 4 : 3;
 
         const dayChapters =
             chapters.slice(
@@ -189,17 +173,13 @@ function buildReadingPlan() {
                 chapterIndex + chaptersForDay
             );
 
-
         readingPlan.push({
-
             day: day,
-
             chapters: dayChapters
-
         });
 
-
         chapterIndex += chaptersForDay;
+
     }
 
 }
@@ -209,597 +189,296 @@ function buildReadingPlan() {
    FECHAS
 ========================================================= */
 
-function parseLocalDate(dateString) {
+function getDefaultStartDate() {
 
-    if (!dateString) {
-
-        return null;
-    }
-
-
-    const [year, month, day] =
-        dateString
-            .split("-")
-            .map(Number);
-
+    const today = new Date();
 
     return new Date(
-        year,
-        month - 1,
-        day
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
     );
-}
 
-
-function formatDate(date) {
-
-    if (!date) {
-
-        return "-";
-    }
-
-
-    return new Intl.DateTimeFormat(
-        "es-NI",
-        {
-
-            day: "numeric",
-
-            month: "long",
-
-            year: "numeric"
-
-        }
-    ).format(date);
-}
-
-
-function formatShortDate(date) {
-
-    if (!date) {
-
-        return "-";
-    }
-
-
-    return new Intl.DateTimeFormat(
-        "es-NI",
-        {
-
-            day: "2-digit",
-
-            month: "2-digit",
-
-            year: "numeric"
-
-        }
-    ).format(date);
 }
 
 
 function dateToInputValue(date) {
 
-    if (!date) {
+    const year = date.getFullYear();
 
-        return "";
-    }
+    const month = String(
+        date.getMonth() + 1
+    ).padStart(2, "0");
 
-
-    const year =
-        date.getFullYear();
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(2, "0");
-
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2, "0");
-
+    const day = String(
+        date.getDate()
+    ).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
 }
 
 
-function addDays(date, days) {
+function inputValueToDate(value) {
 
-    const result =
-        new Date(date);
+    if (!value) {
+        return getDefaultStartDate();
+    }
 
+    const parts = value.split("-");
 
-    result.setDate(
-        result.getDate() + days
+    return new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
     );
 
-
-    return result;
 }
 
 
-function getPlanDate(dayNumber) {
+function loadStartDate() {
 
-    if (!state.startDate) {
-
-        return null;
-    }
-
-
-    return addDays(
-
-        parseLocalDate(
-            state.startDate
-        ),
-
-        dayNumber - 1
-
+    const saved = localStorage.getItem(
+        START_DATE_KEY
     );
-}
-
-
-/* =========================================================
-   DÍA DEL PLAN CORRESPONDIENTE A HOY
-========================================================= */
-
-function getScheduledDayToday() {
-
-    if (!state.startDate) {
-
-        return 1;
-    }
-
-
-    const start =
-        parseLocalDate(
-            state.startDate
-        );
-
-
-    const today =
-        new Date();
-
-
-    start.setHours(
-        0,
-        0,
-        0,
-        0
-    );
-
-
-    today.setHours(
-        0,
-        0,
-        0,
-        0
-    );
-
-
-    const difference =
-        Math.floor(
-
-            (today - start) /
-            (1000 * 60 * 60 * 24)
-
-        );
-
-
-    if (difference < 0) {
-
-        return 1;
-    }
-
-
-    if (difference >= TOTAL_DAYS) {
-
-        return TOTAL_DAYS;
-    }
-
-
-    return difference + 1;
-}
-
-
-/* =========================================================
-   GUARDAR ESTADO
-========================================================= */
-
-function saveState() {
-
-    state.chapters =
-        chapters;
-
-
-    state.selectedDay =
-        selectedDay;
-
-
-    localStorage.setItem(
-
-        STORAGE_KEY,
-
-        JSON.stringify(state)
-
-    );
-}
-
-
-/* =========================================================
-   CARGAR ESTADO
-========================================================= */
-
-function loadState() {
-
-    buildChapters();
-
-
-    const saved =
-        localStorage.getItem(
-            STORAGE_KEY
-        );
-
 
     if (saved) {
 
-        try {
+        startDate = inputValueToDate(saved);
 
-            const parsed =
-                JSON.parse(saved);
+    } else {
 
+        startDate = getDefaultStartDate();
 
-            if (parsed.startDate) {
-
-                state.startDate =
-                    parsed.startDate;
-            }
-
-
-            if (
-                Array.isArray(
-                    parsed.chapters
-                )
-            ) {
-
-                parsed.chapters.forEach(
-                    savedChapter => {
-
-                        const current =
-                            chapters.find(
-                                chapter =>
-                                    chapter.id ===
-                                    savedChapter.id
-                            );
-
-
-                        if (current) {
-
-                            current.read =
-                                Boolean(
-                                    savedChapter.read
-                                );
-                        }
-
-                    }
-                );
-            }
-
-
-            return;
-
-        } catch (error) {
-
-            console.error(
-                "Error cargando estado:",
-                error
-            );
-
-        }
+        localStorage.setItem(
+            START_DATE_KEY,
+            dateToInputValue(startDate)
+        );
 
     }
 
-
-    /*
-       Intentar recuperar progreso
-       de la versión anterior.
-    */
-
-    const oldSaved =
-        localStorage.getItem(
-            OLD_STORAGE_KEY
-        );
-
-
-    if (oldSaved) {
-
-        try {
-
-            const oldData =
-                JSON.parse(
-                    oldSaved
-                );
-
-
-            if (
-                Array.isArray(oldData)
-            ) {
-
-                oldData.forEach(
-                    savedChapter => {
-
-                        const current =
-                            chapters.find(
-                                chapter =>
-                                    chapter.id ===
-                                    savedChapter.id
-                            );
-
-
-                        if (current) {
-
-                            current.read =
-                                Boolean(
-                                    savedChapter.read
-                                );
-                        }
-
-                    }
-                );
-
-            } else if (
-                oldData.chapters
-            ) {
-
-                oldData.chapters.forEach(
-                    savedChapter => {
-
-                        const current =
-                            chapters.find(
-                                chapter =>
-                                    chapter.id ===
-                                    savedChapter.id
-                            );
-
-
-                        if (current) {
-
-                            current.read =
-                                Boolean(
-                                    savedChapter.read
-                                );
-                        }
-
-                    }
-                );
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "No se pudo migrar el progreso anterior:",
-                error
-            );
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   FECHA DE INICIO
-========================================================= */
-
-function openStartDateModal() {
-
-    const input =
-        document.getElementById(
-            "startDateInput"
-        );
-
-
-    input.value =
-        state.startDate ||
-        dateToInputValue(
-            new Date()
-        );
-
-
-    updateStartDatePreview();
-
-
-    document
-        .getElementById(
-            "startDateModal"
-        )
-        .classList.add(
-            "open"
-        );
-}
-
-
-function closeStartDateModal() {
-
-    document
-        .getElementById(
-            "startDateModal"
-        )
-        .classList.remove(
-            "open"
-        );
-}
-
-
-function updateStartDatePreview() {
-
-    const input =
-        document.getElementById(
-            "startDateInput"
-        );
-
-
-    const preview =
-        document.getElementById(
-            "startDatePreview"
-        );
-
-
-    if (!input.value) {
-
-        preview.textContent =
-            "-";
-
-        return;
-    }
-
-
-    const date =
-        parseLocalDate(
-            input.value
-        );
-
-
-    const finalDate =
-        addDays(
-            date,
-            TOTAL_DAYS - 1
-        );
-
-
-    preview.innerHTML =
-
-        `Tu plan comenzará el
-        <strong>${formatDate(date)}</strong>
-        y terminará el
-        <strong>${formatDate(finalDate)}</strong>.`;
 }
 
 
 function saveStartDate() {
 
-    const input =
-        document.getElementById(
-            "startDateInput"
-        );
+    const value = $("startDateInput").value;
 
-
-    if (!input.value) {
-
-        showToast(
-            "Selecciona una fecha de inicio.",
-            "⚠️"
-        );
-
+    if (!value) {
         return;
     }
 
+    startDate = inputValueToDate(value);
 
-    state.startDate =
-        input.value;
+    localStorage.setItem(
+        START_DATE_KEY,
+        value
+    );
 
-
-    saveState();
-
-
-    closeStartDateModal();
-
-
-    updateAll();
-
+    renderDays();
+    renderSelectedDay();
+    updateDashboard();
+    renderStatistics();
 
     showToast(
-        "Fecha de inicio guardada.",
-        "📅"
+        "✓",
+        "Fecha de inicio actualizada"
     );
+
+}
+
+
+function getDayDate(dayNumber) {
+
+    const date = new Date(startDate);
+
+    date.setDate(
+        date.getDate() + dayNumber - 1
+    );
+
+    return date;
+
 }
 
 
 /* =========================================================
-   ESTADÍSTICAS GENERALES
+   FORMATO DE FECHAS
 ========================================================= */
+
+function formatLongDate(date) {
+
+    return new Intl.DateTimeFormat(
+        "es-NI",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    ).format(date);
+
+}
+
+
+function formatShortDate(date) {
+
+    return new Intl.DateTimeFormat(
+        "es-NI",
+        {
+            day: "numeric",
+            month: "short"
+        }
+    ).format(date);
+
+}
+
+
+function getMonthKey(date) {
+
+    return `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+    ).padStart(2, "0")}`;
+
+}
+
+
+function getMonthLabel(date) {
+
+    const text = new Intl.DateTimeFormat(
+        "es-NI",
+        {
+            month: "long",
+            year: "numeric"
+        }
+    ).format(date);
+
+    return text.charAt(0).toUpperCase() + text.slice(1);
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function saveProgress() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(chapters)
+    );
+
+}
+
+
+function loadProgress() {
+
+    const saved = localStorage.getItem(
+        STORAGE_KEY
+    );
+
+    if (!saved) {
+        return;
+    }
+
+    try {
+
+        const savedChapters = JSON.parse(saved);
+
+        savedChapters.forEach(savedChapter => {
+
+            const current = chapters.find(
+                chapter => chapter.id === savedChapter.id
+            );
+
+            if (current) {
+                current.read = Boolean(
+                    savedChapter.read
+                );
+            }
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo cargar el progreso:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DATOS DEL PLAN
+========================================================= */
+
+function getDay(dayNumber) {
+
+    return readingPlan.find(
+        day => day.day === dayNumber
+    );
+
+}
+
+
+function isDayCompleted(dayNumber) {
+
+    const day = getDay(dayNumber);
+
+    if (!day || day.chapters.length === 0) {
+        return false;
+    }
+
+    return day.chapters.every(
+        chapter => chapter.read
+    );
+
+}
+
+
+function getCompletedDays() {
+
+    return readingPlan.filter(
+        day => isDayCompleted(day.day)
+    ).length;
+
+}
+
 
 function getReadCount() {
 
     return chapters.filter(
-        chapter =>
-            chapter.read
+        chapter => chapter.read
     ).length;
+
 }
 
 
 function getPercentage() {
 
     return Math.round(
-
-        (
-            getReadCount() /
-            TOTAL_CHAPTERS
-        ) * 100
-
+        (getReadCount() / TOTAL_CHAPTERS) * 100
     );
+
 }
 
 
-function isDayCompleted(dayNumber) {
+/* =========================================================
+   DÍA SIGUIENTE
+========================================================= */
 
-    const day =
-        readingPlan[
-            dayNumber - 1
-        ];
+function getNextIncompleteDay() {
 
+    const incomplete = readingPlan.find(
+        day => !isDayCompleted(day.day)
+    );
 
-    if (!day) {
-
-        return false;
+    if (incomplete) {
+        return incomplete.day;
     }
 
-
-    return day.chapters.every(
-        chapter => {
-
-            const current =
-                chapters.find(
-                    item =>
-                        item.id ===
-                        chapter.id
-                );
-
-
-            return (
-                current &&
-                current.read
-            );
-        }
-    );
-}
-
-
-function getCompletedDays() {
-
-    let count = 0;
-
-
-    readingPlan.forEach(
-        day => {
-
-            if (
-                isDayCompleted(
-                    day.day
-                )
-            ) {
-
-                count++;
-            }
-
-        }
-    );
-
-
-    return count;
+    return TOTAL_DAYS;
 }
 
 
@@ -809,36 +488,21 @@ function getCompletedDays() {
 
 function getStreak() {
 
-    let latestCompleted =
-        0;
+    let latestCompleted = 0;
 
+    readingPlan.forEach(day => {
 
-    for (
-        let day = 1;
-        day <= TOTAL_DAYS;
-        day++
-    ) {
-
-        if (
-            isDayCompleted(day)
-        ) {
-
-            latestCompleted =
-                day;
+        if (isDayCompleted(day.day)) {
+            latestCompleted = day.day;
         }
-    }
 
+    });
 
-    if (
-        latestCompleted === 0
-    ) {
-
+    if (latestCompleted === 0) {
         return 0;
     }
 
-
     let streak = 0;
-
 
     for (
         let day = latestCompleted;
@@ -846,146 +510,69 @@ function getStreak() {
         day--
     ) {
 
-        if (
-            !isDayCompleted(day)
-        ) {
-
+        if (isDayCompleted(day)) {
+            streak++;
+        } else {
             break;
         }
 
-
-        streak++;
     }
-
 
     return streak;
+
 }
 
 
 /* =========================================================
-   SIGUIENTE DÍA INCOMPLETO
+   DESCRIPCIÓN DE LECTURA
 ========================================================= */
 
-function getNextIncompleteDay() {
+function getReadingDescription(dayNumber) {
 
-    for (
-        let day = 1;
-        day <= TOTAL_DAYS;
-        day++
-    ) {
+    const day = getDay(dayNumber);
 
-        if (
-            !isDayCompleted(day)
-        ) {
-
-            return day;
-        }
+    if (!day || day.chapters.length === 0) {
+        return "";
     }
 
+    const groups = [];
 
-    return TOTAL_DAYS;
-}
+    day.chapters.forEach(chapter => {
 
+        let group = groups.find(
+            item => item.book === chapter.book
+        );
 
-/* =========================================================
-   DESCRIPCIÓN DE LA LECTURA
-========================================================= */
+        if (!group) {
 
-function getReadingDescription(
-    dayNumber
-) {
+            group = {
+                book: chapter.book,
+                chapters: []
+            };
 
-    const day =
-        readingPlan[
-            dayNumber - 1
-        ];
-
-
-    if (!day) {
-
-        return "-";
-    }
-
-
-    const grouped = {};
-
-
-    day.chapters.forEach(
-        chapter => {
-
-            if (
-                !grouped[
-                    chapter.book
-                ]
-            ) {
-
-                grouped[
-                    chapter.book
-                ] = [];
-            }
-
-
-            grouped[
-                chapter.book
-            ].push(
-                chapter.chapter
-            );
+            groups.push(group);
 
         }
-    );
+
+        group.chapters.push(
+            chapter.chapter
+        );
+
+    });
 
 
-    return Object.entries(
-        grouped
-    )
+    return groups.map(group => {
 
-        .map(
-            ([book, chapterNumbers]) => {
+        const nums = group.chapters;
 
-                if (
-                    chapterNumbers.length ===
-                    1
-                ) {
+        if (nums.length === 1) {
+            return `${group.book} ${nums[0]}`;
+        }
 
-                    return `${book} ${chapterNumbers[0]}`;
-                }
+        return `${group.book} ${nums[0]}–${nums[nums.length - 1]}`;
 
+    }).join(" · ");
 
-                return `${book} ${chapterNumbers[0]}–${chapterNumbers[chapterNumbers.length - 1]}`;
-
-            }
-        )
-
-        .join(" · ");
-}
-
-
-/* =========================================================
-   CÍRCULOS DE PROGRESO
-========================================================= */
-
-function updateCircle(
-    element,
-    percentage,
-    color
-) {
-
-    if (!element) {
-
-        return;
-    }
-
-
-    const degrees =
-        percentage * 3.6;
-
-
-    element.style.background =
-
-        `conic-gradient(
-            ${color} ${degrees}deg,
-            var(--border) ${degrees}deg
-        )`;
 }
 
 
@@ -995,716 +582,408 @@ function updateCircle(
 
 function updateDashboard() {
 
-    const percentage =
-        getPercentage();
+    const read = getReadCount();
+    const percentage = getPercentage();
+    const completedDays = getCompletedDays();
+    const streak = getStreak();
 
+    const nextDay = getNextIncompleteDay();
 
-    const read =
-        getReadCount();
-
-
-    const days =
-        getCompletedDays();
-
-
-    const streak =
-        getStreak();
-
-
-    const nextDay =
-        getNextIncompleteDay();
-
-
-    document.getElementById(
-        "dashboardPercentage"
-    ).textContent =
+    $("dashboardPercentage").textContent =
         `${percentage}%`;
 
+    $("dashboardChapters").textContent =
+        `${read} / ${TOTAL_CHAPTERS}`;
 
-    document.getElementById(
-        "dashboardChapters"
-    ).textContent =
+    $("dashboardDays").textContent =
+        `${completedDays} / ${TOTAL_DAYS}`;
+
+    $("dashboardStreak").textContent =
+        `${streak} ${streak === 1 ? "día" : "días"}`;
+
+    $("largePercentage").textContent =
+        `${percentage}%`;
+
+    $("mainProgress").style.width =
+        `${percentage}%`;
+
+    $("progressRead").textContent =
         read;
 
+    $("progressRemaining").textContent =
+        TOTAL_CHAPTERS - read;
 
-    document.getElementById(
-        "dashboardDays"
-    ).textContent =
-        days;
-
-
-    document.getElementById(
-        "dashboardStreak"
-    ).textContent =
-        streak;
-
-
-    document.getElementById(
-        "dashboardCurrentDay"
-    ).textContent =
-        nextDay;
-
-
-    updateCircle(
-
-        document.getElementById(
-            "dashboardCircle"
-        ),
-
-        percentage,
-
-        "var(--gold)"
-
-    );
-
-
-    document.getElementById(
-        "nextDayTitle"
-    ).textContent =
+    $("nextDayTitle").textContent =
         `Día ${nextDay}`;
 
+    $("nextDayStatus").textContent =
+        isDayCompleted(nextDay)
+            ? "Completado"
+            : "Pendiente";
 
-    document.getElementById(
-        "nextReadingText"
-    ).textContent =
-        getReadingDescription(
-            nextDay
-        );
-
-
-    const status =
-        document.getElementById(
-            "nextDayStatus"
-        );
-
-
-    if (
-        isDayCompleted(
-            nextDay
-        )
-    ) {
-
-        status.textContent =
-            "Completado";
-
-
-        status.classList.add(
-            "completed"
-        );
-
-    } else {
-
-        status.textContent =
-            "Pendiente";
-
-
-        status.classList.remove(
-            "completed"
-        );
-
-    }
-
-
-    document.getElementById(
-        "heroStartDate"
-    ).textContent =
-
-        `Fecha de inicio: ${
-            formatDate(
-                parseLocalDate(
-                    state.startDate
-                )
-            )
+    $("nextDayStatus").className =
+        `status-badge ${
+            isDayCompleted(nextDay)
+                ? "completed"
+                : "pending"
         }`;
+
+    $("nextReadingText").textContent =
+        getReadingDescription(nextDay);
+
 }
 
 
 /* =========================================================
-   LECTURA DE HOY
+   SELECCIONAR DÍA
 ========================================================= */
 
-function updateTodaySection() {
+function selectDay(dayNumber) {
 
-    const todayDay =
-        getScheduledDayToday();
+    selectedDay = dayNumber;
 
+    renderSelectedDay();
+    renderDays();
 
-    const planDate =
-        getPlanDate(
-            todayDay
-        );
+    /*
+        Cuando el usuario selecciona un día desde
+        el historial, volvemos arriba de la sección
+        para que inmediatamente vea el registro.
+    */
 
-
-    document.getElementById(
-        "todayDayTitle"
-    ).textContent =
-        `Día ${todayDay}`;
-
-
-    document.getElementById(
-        "todayDateText"
-    ).textContent =
-        formatDate(
-            planDate
-        );
-
-
-    document.getElementById(
-        "todayReading"
-    ).textContent =
-        getReadingDescription(
-            todayDay
-        );
-
-
-    const status =
-        document.getElementById(
-            "todayStatus"
-        );
-
+    const planSection = $("plan");
 
     if (
-        isDayCompleted(
-            todayDay
-        )
+        planSection &&
+        planSection.classList.contains("active-section")
     ) {
 
-        status.textContent =
-            "Completado";
-
-
-        status.classList.add(
-            "completed"
-        );
-
-    } else {
-
-        status.textContent =
-            "Pendiente";
-
-
-        status.classList.remove(
-            "completed"
-        );
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     }
 
-
-    renderTodayChapters(
-        todayDay
-    );
 }
 
 
 /* =========================================================
-   CAPÍTULOS DE HOY
-========================================================= */
-
-function renderTodayChapters(
-    dayNumber
-) {
-
-    const container =
-        document.getElementById(
-            "todayChapterList"
-        );
-
-
-    container.innerHTML = "";
-
-
-    const day =
-        readingPlan[
-            dayNumber - 1
-        ];
-
-
-    if (!day) {
-
-        return;
-    }
-
-
-    day.chapters.forEach(
-        chapter => {
-
-            const current =
-                chapters.find(
-                    item =>
-                        item.id ===
-                        chapter.id
-                );
-
-
-            const label =
-                document.createElement(
-                    "label"
-                );
-
-
-            label.className =
-                "chapter-item";
-
-
-            if (
-                current.read
-            ) {
-
-                label.classList.add(
-                    "read"
-                );
-            }
-
-
-            const checkbox =
-                document.createElement(
-                    "input"
-                );
-
-
-            checkbox.type =
-                "checkbox";
-
-
-            checkbox.checked =
-                current.read;
-
-
-            checkbox.addEventListener(
-                "change",
-                () => {
-
-                    current.read =
-                        checkbox.checked;
-
-
-                    saveState();
-
-                    updateAll();
-
-                    renderTodayChapters(
-                        dayNumber
-                    );
-
-                }
-            );
-
-
-            const text =
-                document.createElement(
-                    "span"
-                );
-
-
-            text.textContent =
-                `${chapter.book} ${chapter.chapter}`;
-
-
-            label.appendChild(
-                checkbox
-            );
-
-
-            label.appendChild(
-                text
-            );
-
-
-            container.appendChild(
-                label
-            );
-
-        }
-    );
-}
-
-
-/* =========================================================
-   HISTORIAL
-========================================================= */
-
-function renderDays() {
-
-    const container =
-        document.getElementById(
-            "daysGrid"
-        );
-
-
-    container.innerHTML = "";
-
-
-    for (
-        let day = 1;
-        day <= TOTAL_DAYS;
-        day++
-    ) {
-
-        const button =
-            document.createElement(
-                "button"
-            );
-
-
-        button.className =
-            "day-button";
-
-
-        if (
-            day === selectedDay
-        ) {
-
-            button.classList.add(
-                "selected"
-            );
-        }
-
-
-        if (
-            isDayCompleted(day)
-        ) {
-
-            button.classList.add(
-                "completed"
-            );
-        }
-
-
-        const date =
-            getPlanDate(day);
-
-
-        button.innerHTML =
-
-            `Día ${day}
-             <small>
-                ${formatShortDate(date)}
-             </small>`;
-
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                selectedDay =
-                    day;
-
-
-                renderDays();
-
-                renderSelectedDay();
-
-            }
-        );
-
-
-        container.appendChild(
-            button
-        );
-    }
-
-
-    document.getElementById(
-        "planCompletedCounter"
-    ).textContent =
-
-        `${getCompletedDays()} / ${TOTAL_DAYS}`;
-
-
-    document.getElementById(
-        "planStartSummary"
-    ).textContent =
-
-        formatDate(
-            parseLocalDate(
-                state.startDate
-            )
-        );
-}
-
-
-/* =========================================================
-   DÍA SELECCIONADO
+   RENDER DEL DÍA SELECCIONADO
 ========================================================= */
 
 function renderSelectedDay() {
 
-    const day =
-        readingPlan[
-            selectedDay - 1
-        ];
-
+    const day = getDay(selectedDay);
 
     if (!day) {
-
         return;
     }
 
+    const completed =
+        isDayCompleted(selectedDay);
 
     const date =
-        getPlanDate(
-            selectedDay
-        );
+        getDayDate(selectedDay);
 
 
-    /*
-       LA LECTURA DESTACADA SE ACTUALIZA
-       AL PRINCIPIO DE LA TARJETA.
-    */
-
-    document.getElementById(
-        "selectedDayReading"
-    ).textContent =
-        getReadingDescription(
-            selectedDay
-        );
-
-
-    document.getElementById(
-        "selectedDayTitle"
-    ).textContent =
+    $("selectedDayTitle").textContent =
         `Día ${selectedDay}`;
 
 
-    document.getElementById(
-        "selectedDayDate"
-    ).textContent =
-        formatDate(
-            date
-        );
+    $("selectedDayDate").textContent =
+        formatLongDate(date);
 
 
-    const status =
-        document.getElementById(
-            "selectedDayStatus"
-        );
+    $("selectedDayStatus").textContent =
+        completed
+            ? "Completado"
+            : "Pendiente";
 
 
-    if (
-        isDayCompleted(
-            selectedDay
-        )
-    ) {
-
-        status.textContent =
-            "Completado";
+    $("selectedDayStatus").className =
+        `status-badge ${
+            completed
+                ? "completed"
+                : "pending"
+        }`;
 
 
-        status.classList.add(
-            "completed"
-        );
-
-    } else {
-
-        status.textContent =
-            "Pendiente";
+    $("selectedDayReading").textContent =
+        getReadingDescription(selectedDay);
 
 
-        status.classList.remove(
-            "completed"
-        );
+    const chapterList =
+        $("chapterList");
 
-    }
-
-
-    const container =
-        document.getElementById(
-            "chapterList"
-        );
+    chapterList.innerHTML = "";
 
 
-    container.innerHTML = "";
+    day.chapters.forEach(chapter => {
+
+        const label =
+            document.createElement("label");
+
+        label.className =
+            `chapter-item ${
+                chapter.read ? "read" : ""
+            }`;
 
 
-    day.chapters.forEach(
-        chapter => {
+        const checkbox =
+            document.createElement("input");
 
-            const current =
-                chapters.find(
-                    item =>
-                        item.id ===
-                        chapter.id
+        checkbox.type = "checkbox";
+
+        checkbox.checked =
+            chapter.read;
+
+
+        checkbox.addEventListener(
+            "change",
+            () => {
+
+                chapter.read =
+                    checkbox.checked;
+
+                renderSelectedDay();
+                renderDays();
+
+                updateAll();
+
+                saveProgress();
+
+                showToast(
+                    checkbox.checked ? "✓" : "↶",
+                    checkbox.checked
+                        ? `${chapter.book} ${chapter.chapter} registrado`
+                        : `${chapter.book} ${chapter.chapter} desmarcado`
                 );
 
-
-            const label =
-                document.createElement(
-                    "label"
-                );
-
-
-            label.className =
-                "chapter-item";
-
-
-            if (
-                current.read
-            ) {
-
-                label.classList.add(
-                    "read"
-                );
             }
+        );
 
 
-            const checkbox =
-                document.createElement(
-                    "input"
-                );
+        const content =
+            document.createElement("div");
+
+        content.className =
+            "chapter-item-content";
 
 
-            checkbox.type =
-                "checkbox";
+        const book =
+            document.createElement("span");
+
+        book.className =
+            "chapter-item-book";
+
+        book.textContent =
+            chapter.book;
 
 
-            checkbox.checked =
-                current.read;
+        const number =
+            document.createElement("span");
+
+        number.className =
+            "chapter-item-number";
+
+        number.textContent =
+            `Capítulo ${chapter.chapter}`;
 
 
-            checkbox.addEventListener(
-                "change",
-                () => {
-
-                    current.read =
-                        checkbox.checked;
+        content.appendChild(book);
+        content.appendChild(number);
 
 
-                    saveState();
-
-                    updateAll();
-
-                    renderSelectedDay();
-
-                }
-            );
+        label.appendChild(checkbox);
+        label.appendChild(content);
 
 
-            const text =
-                document.createElement(
-                    "span"
-                );
+        if (chapter.read) {
 
+            const check =
+                document.createElement("span");
 
-            text.textContent =
-                `${chapter.book} ${chapter.chapter}`;
+            check.className =
+                "read-check";
 
+            check.textContent = "✓";
 
-            label.appendChild(
-                checkbox
-            );
-
-
-            label.appendChild(
-                text
-            );
-
-
-            container.appendChild(
-                label
-            );
+            label.appendChild(check);
 
         }
-    );
+
+
+        chapterList.appendChild(label);
+
+    });
+
 }
 
 
 /* =========================================================
-   COMPLETAR / DESMARCAR DÍA
+   COMPLETAR DÍA
 ========================================================= */
 
-function completeDay(
-    dayNumber
-) {
+function completeSelectedDay() {
 
-    const day =
-        readingPlan[
-            dayNumber - 1
-        ];
-
+    const day = getDay(selectedDay);
 
     if (!day) {
-
         return;
     }
 
-
     day.chapters.forEach(
         chapter => {
-
-            const current =
-                chapters.find(
-                    item =>
-                        item.id ===
-                        chapter.id
-                );
-
-
-            if (current) {
-
-                current.read = true;
-            }
-
+            chapter.read = true;
         }
     );
 
-
-    saveState();
+    saveProgress();
 
     updateAll();
 
+    renderSelectedDay();
+    renderDays();
 
     showToast(
-        `Día ${dayNumber} completado.`,
-        "✓"
+        "✓",
+        `Día ${selectedDay} completado`
     );
+
 }
 
 
-function uncompleteDay(
-    dayNumber
-) {
+/* =========================================================
+   DESMARCAR DÍA
+========================================================= */
 
-    const day =
-        readingPlan[
-            dayNumber - 1
-        ];
+function uncompleteSelectedDay() {
 
+    const day = getDay(selectedDay);
 
     if (!day) {
-
         return;
     }
 
-
     day.chapters.forEach(
         chapter => {
-
-            const current =
-                chapters.find(
-                    item =>
-                        item.id ===
-                        chapter.id
-                );
-
-
-            if (current) {
-
-                current.read = false;
-            }
-
+            chapter.read = false;
         }
     );
 
-
-    saveState();
+    saveProgress();
 
     updateAll();
 
+    renderSelectedDay();
+    renderDays();
 
     showToast(
-        `Día ${dayNumber} desmarcado.`,
-        "↩"
+        "↶",
+        `Día ${selectedDay} desmarcado`
     );
+
+}
+
+
+/* =========================================================
+   RENDER HISTORIAL
+========================================================= */
+
+function renderDays() {
+
+    const grid =
+        $("daysGrid");
+
+    grid.innerHTML = "";
+
+
+    readingPlan.forEach(day => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "day-button";
+
+
+        if (day.day === selectedDay) {
+            button.classList.add("selected");
+        }
+
+
+        if (isDayCompleted(day.day)) {
+            button.classList.add("completed");
+        }
+
+
+        const number =
+            document.createElement("span");
+
+        number.className =
+            "day-number";
+
+        number.textContent =
+            `Día ${day.day}`;
+
+
+        const date =
+            document.createElement("span");
+
+        date.className =
+            "day-date";
+
+        date.textContent =
+            formatShortDate(
+                getDayDate(day.day)
+            );
+
+
+        const reading =
+            document.createElement("span");
+
+        reading.className =
+            "day-reading";
+
+        reading.textContent =
+            getReadingDescription(day.day);
+
+
+        button.appendChild(number);
+        button.appendChild(date);
+        button.appendChild(reading);
+
+
+        if (isDayCompleted(day.day)) {
+
+            const check =
+                document.createElement("span");
+
+            check.className =
+                "day-check";
+
+            check.textContent =
+                "✓";
+
+            button.appendChild(check);
+
+        }
+
+
+        button.addEventListener(
+            "click",
+            () => selectDay(day.day)
+        );
+
+
+        grid.appendChild(button);
+
+    });
+
+
+    $("planCompletedCounter").textContent =
+        getCompletedDays();
+
 }
 
 
@@ -1712,68 +991,47 @@ function uncompleteDay(
    LIBROS
 ========================================================= */
 
-function renderBooks(
-    search = ""
-) {
+function renderBooks(search = "") {
 
-    const container =
-        document.getElementById(
-            "booksGrid"
-        );
+    const grid =
+        $("booksGrid");
+
+    grid.innerHTML = "";
 
 
-    container.innerHTML = "";
+    const normalizedSearch =
+        search.trim().toLowerCase();
 
 
-    const query =
-        search
-            .trim()
-            .toLowerCase();
-
-
-    BOOKS.forEach(
-        ([book, totalChapters]) => {
-
-            if (
-                query &&
-                !book
-                    .toLowerCase()
-                    .includes(query)
-            ) {
-
-                return;
-            }
-
+    BOOKS
+        .filter(book =>
+            book.name
+                .toLowerCase()
+                .includes(normalizedSearch)
+        )
+        .forEach(book => {
 
             const bookChapters =
                 chapters.filter(
                     chapter =>
-                        chapter.book ===
-                        book
+                        chapter.book === book.name
                 );
 
 
             const read =
                 bookChapters.filter(
-                    chapter =>
-                        chapter.read
+                    chapter => chapter.read
                 ).length;
 
 
             const percentage =
                 Math.round(
-                    (
-                        read /
-                        totalChapters
-                    ) * 100
+                    (read / book.chapters) * 100
                 );
 
 
             const card =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             card.className =
                 "book-card";
@@ -1781,14 +1039,12 @@ function renderBooks(
 
             card.innerHTML = `
 
-                <div class="book-header">
+                <div class="book-card-top">
 
-                    <strong>
-                        ${book}
-                    </strong>
+                    <h3>${book.name}</h3>
 
-                    <span>
-                        ${read}/${totalChapters}
+                    <span class="book-percentage">
+                        ${percentage}%
                     </span>
 
                 </div>
@@ -1796,25 +1052,45 @@ function renderBooks(
                 <div class="book-progress">
 
                     <div
+                        class="book-progress-fill"
                         style="width:${percentage}%"
                     ></div>
 
                 </div>
 
-                <div class="book-footer">
+                <div class="book-meta">
 
-                    ${percentage}% completado
+                    <span>
+                        ${read} de ${book.chapters} capítulos
+                    </span>
+
+                    <span>
+                        ${
+                            read === book.chapters
+                                ? "✓ Completo"
+                                : `${book.chapters - read} pendientes`
+                        }
+                    </span>
 
                 </div>
             `;
 
 
-            container.appendChild(
-                card
-            );
+            grid.appendChild(card);
 
-        }
-    );
+        });
+
+
+    if (grid.children.length === 0) {
+
+        grid.innerHTML = `
+            <div class="content-card">
+                No se encontró ningún libro.
+            </div>
+        `;
+
+    }
+
 }
 
 
@@ -1824,329 +1100,168 @@ function renderBooks(
 
 function renderStatistics() {
 
-    const read =
-        getReadCount();
-
-
+    const read = getReadCount();
+    const percentage = getPercentage();
     const remaining =
         TOTAL_CHAPTERS - read;
 
-
-    const percentage =
-        getPercentage();
-
-
-    const days =
+    const completedDays =
         getCompletedDays();
-
 
     const streak =
         getStreak();
 
 
-    document.getElementById(
-        "largePercentage"
-    ).textContent =
+    $("circlePercentage").textContent =
         `${percentage}%`;
 
 
-    document.getElementById(
-        "statsRead"
-    ).textContent =
+    $("statsRead").textContent =
         read;
 
 
-    document.getElementById(
-        "statsReadLarge"
-    ).textContent =
-        read;
-
-
-    document.getElementById(
-        "statsRemaining"
-    ).textContent =
+    $("statsRemaining").textContent =
         remaining;
 
 
-    document.getElementById(
-        "statsDays"
-    ).textContent =
-        days;
+    $("statsDays").textContent =
+        `${completedDays} / ${TOTAL_DAYS}`;
 
 
-    document.getElementById(
-        "statsStreak"
-    ).textContent =
-        streak;
+    $("statsStreak").textContent =
+        `${streak} ${streak === 1 ? "día" : "días"}`;
 
 
     const average =
-        days > 0
-            ? (
-                read / days
-            ).toFixed(1)
+        completedDays > 0
+            ? (read / completedDays).toFixed(1)
             : "0";
 
 
-    document.getElementById(
-        "averageChapters"
-    ).textContent =
+    $("averageChapters").textContent =
         average;
 
 
-    updateCircle(
-
-        document.getElementById(
-            "largeCircle"
-        ),
-
-        percentage,
-
-        "var(--primary)"
-
-    );
+    const degrees =
+        percentage * 3.6;
 
 
-    const start =
-        parseLocalDate(
-            state.startDate
-        );
-
-
-    const end =
-        addDays(
-            start,
-            TOTAL_DAYS - 1
-        );
-
-
-    document.getElementById(
-        "statisticsPeriodText"
-    ).textContent =
-
-        `Periodo del plan:
-        ${formatDate(start)}
-        – ${formatDate(end)}`;
+    $("circleProgress").style.background =
+        `conic-gradient(
+            var(--primary) ${degrees}deg,
+            var(--background) ${degrees}deg
+        )`;
 
 
     renderMonthlyProgress();
+
 }
 
 
 /* =========================================================
-   AVANCE MENSUAL
+   PROGRESO MENSUAL
+   BASADO EN FECHAS REALES
 ========================================================= */
 
 function renderMonthlyProgress() {
 
     const container =
-        document.getElementById(
-            "monthlyProgress"
-        );
-
+        $("monthlyProgress");
 
     container.innerHTML = "";
 
 
-    if (!state.startDate) {
-
-        return;
-    }
-
-
-    const start =
-        parseLocalDate(
-            state.startDate
-        );
-
-
-    const months = [];
-
-
-    for (
-        let month = 0;
-        month < 12;
-        month++
-    ) {
-
-        const date =
-            new Date(
-
-                start.getFullYear(),
-
-                start.getMonth() +
-                    month,
-
-                1
-
-            );
-
-
-        months.push({
-
-            year:
-                date.getFullYear(),
-
-            month:
-                date.getMonth(),
-
-            label:
-                new Intl.DateTimeFormat(
-                    "es-NI",
-                    {
-                        month:
-                            "long",
-
-                        year:
-                            "numeric"
-                    }
-                ).format(date),
-
-            chapters: 0,
-
-            read: 0
-
-        });
-
-    }
+    const months = {};
 
 
     /*
-       Cada capítulo se asigna
-       al mes real correspondiente
-       a su día de lectura.
+        Recorremos los 365 días del plan.
+
+        Cada día pertenece al mes calendario
+        real correspondiente a la fecha de inicio.
     */
 
-    readingPlan.forEach(
-        day => {
+    readingPlan.forEach(day => {
 
-            const dayDate =
-                getPlanDate(
-                    day.day
-                );
+        const date =
+            getDayDate(day.day);
 
-
-            const year =
-                dayDate.getFullYear();
+        const key =
+            getMonthKey(date);
 
 
-            const month =
-                dayDate.getMonth();
+        if (!months[key]) {
 
-
-            const target =
-                months.find(
-                    item =>
-                        item.year ===
-                            year &&
-                        item.month ===
-                            month
-                );
-
-
-            if (!target) {
-
-                return;
-            }
-
-
-            day.chapters.forEach(
-                chapter => {
-
-                    target.chapters++;
-
-
-                    const current =
-                        chapters.find(
-                            item =>
-                                item.id ===
-                                chapter.id
-                        );
-
-
-                    if (
-                        current &&
-                        current.read
-                    ) {
-
-                        target.read++;
-                    }
-
-                }
-            );
+            months[key] = {
+                date: new Date(
+                    date.getFullYear(),
+                    date.getMonth(),
+                    1
+                ),
+                planned: 0,
+                read: 0
+            };
 
         }
-    );
 
 
-    months.forEach(
-        item => {
-
-            const percentage =
-                item.chapters > 0
-
-                    ? Math.round(
-                        (
-                            item.read /
-                            item.chapters
-                        ) * 100
-                    )
-
-                    : 0;
+        months[key].planned +=
+            day.chapters.length;
 
 
-            const row =
-                document.createElement(
-                    "div"
-                );
+        months[key].read +=
+            day.chapters.filter(
+                chapter => chapter.read
+            ).length;
+
+    });
 
 
-            row.className =
-                "month-row";
+    Object.values(months).forEach(month => {
+
+        const percentage =
+            month.planned > 0
+                ? Math.round(
+                    (month.read / month.planned) * 100
+                )
+                : 0;
 
 
-            row.innerHTML = `
+        const row =
+            document.createElement("div");
 
-                <div class="month-name">
-
-                    ${capitalize(
-                        item.label
-                    )}
-
-                </div>
-
-                <div class="month-bar">
-
-                    <div
-                        style="width:${percentage}%"
-                    ></div>
-
-                </div>
-
-                <div class="month-count">
-
-                    ${item.read}/${item.chapters}
-
-                </div>
-
-            `;
+        row.className =
+            "month-row";
 
 
-            container.appendChild(
-                row
-            );
+        row.innerHTML = `
 
-        }
-    );
-}
+            <div class="month-name">
+                ${getMonthLabel(month.date)}
+            </div>
+
+            <div class="month-bar">
+
+                <div
+                    class="month-bar-fill"
+                    style="width:${percentage}%"
+                ></div>
+
+            </div>
+
+            <div class="month-value">
+                ${month.read}/${month.planned}
+                <br>
+                ${percentage}%
+            </div>
+
+        `;
 
 
-function capitalize(text) {
+        container.appendChild(row);
 
-    return (
-        text.charAt(0).toUpperCase() +
-        text.slice(1)
-    );
+    });
+
 }
 
 
@@ -2154,135 +1269,88 @@ function capitalize(text) {
    NAVEGACIÓN
 ========================================================= */
 
-function navigate(
-    section
-) {
+function navigate(sectionName) {
 
     document
-        .querySelectorAll(
-            ".page-section"
-        )
-        .forEach(
-            page => {
+        .querySelectorAll(".page-section")
+        .forEach(section => {
 
-                page.classList.remove(
-                    "active"
-                );
+            section.classList.remove(
+                "active-section"
+            );
 
-            }
+        });
+
+
+    const section =
+        $(sectionName);
+
+    if (section) {
+
+        section.classList.add(
+            "active-section"
         );
 
-
-    const target =
-        document.getElementById(
-            `${section}Section`
-        );
-
-
-    if (target) {
-
-        target.classList.add(
-            "active"
-        );
     }
 
 
     document
-        .querySelectorAll(
-            ".nav-item"
-        )
-        .forEach(
-            button => {
+        .querySelectorAll(".nav-item")
+        .forEach(button => {
 
-                button.classList.toggle(
+            button.classList.toggle(
+                "active",
+                button.dataset.section === sectionName
+            );
 
-                    "active",
-
-                    button.dataset.section ===
-                        section
-
-                );
-
-            }
-        );
+        });
 
 
     const titles = {
 
-        home:
-            "Inicio",
+        inicio: "Inicio",
 
-        today:
-            "Lectura de hoy",
+        plan: "Plan de lectura",
 
-        history:
-            "Historial de lectura",
+        libros: "Libros",
 
-        books:
-            "Libros",
+        estadisticas: "Estadísticas",
 
-        statistics:
-            "Estadísticas",
-
-        data:
-            "Datos"
+        datos: "Mis datos"
 
     };
 
 
-    document.getElementById(
-        "pageTitle"
-    ).textContent =
-
-        titles[section] ||
-        "Biblia 365";
+    $("pageTitle").textContent =
+        titles[sectionName] || "Biblia 365";
 
 
-    document
-        .getElementById(
-            "sidebar"
-        )
-        .classList.remove(
-            "open"
-        );
+    /*
+        En Plan siempre comenzamos mostrando
+        el registro de lectura.
+    */
 
-
-    if (
-        section === "today"
-    ) {
-
-        updateTodaySection();
-    }
-
-
-    if (
-        section === "history"
-    ) {
-
-        renderDays();
+    if (sectionName === "plan") {
 
         renderSelectedDay();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    } else {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
     }
 
 
-    if (
-        section === "books"
-    ) {
+    closeMobileMenu();
 
-        renderBooks(
-            document.getElementById(
-                "bookSearch"
-            ).value
-        );
-    }
-
-
-    if (
-        section === "statistics"
-    ) {
-
-        renderStatistics();
-    }
 }
 
 
@@ -2298,102 +1366,70 @@ function loadTheme() {
         );
 
 
-    if (
-        theme === "dark"
-    ) {
+    if (theme === "dark") {
 
-        document.body.classList.add(
-            "dark"
-        );
+        document.body.classList.add("dark");
+
+        $("themeIcon").textContent =
+            "☀️";
+
+        $("themeText").textContent =
+            "Modo claro";
+
+    } else {
+
+        document.body.classList.remove("dark");
+
+        $("themeIcon").textContent =
+            "🌙";
+
+        $("themeText").textContent =
+            "Modo oscuro";
+
     }
 
-
-    updateThemeButton();
 }
 
 
 function toggleTheme() {
 
-    document.body.classList.toggle(
-        "dark"
-    );
+    document.body.classList.toggle("dark");
 
-
-    const isDark =
-        document.body.classList.contains(
-            "dark"
-        );
+    const dark =
+        document.body.classList.contains("dark");
 
 
     localStorage.setItem(
-
         THEME_KEY,
-
-        isDark
-            ? "dark"
-            : "light"
-
+        dark ? "dark" : "light"
     );
 
 
-    updateThemeButton();
-}
+    loadTheme();
 
-
-function updateThemeButton() {
-
-    const isDark =
-        document.body.classList.contains(
-            "dark"
-        );
-
-
-    document.getElementById(
-        "themeIcon"
-    ).textContent =
-
-        isDark
-            ? "☀️"
-            : "🌙";
-
-
-    document.getElementById(
-        "themeText"
-    ).textContent =
-
-        isDark
-            ? "Modo claro"
-            : "Modo oscuro";
 }
 
 
 /* =========================================================
-   FECHA ACTUAL
+   FECHA ACTUAL EN HEADER
 ========================================================= */
 
 function updateTodayBadge() {
 
-    document.getElementById(
-        "todayBadge"
-    ).textContent =
+    const today =
+        new Date();
 
+    $("todayBadge").textContent =
         new Intl.DateTimeFormat(
             "es-NI",
             {
-
-                weekday:
-                    "long",
-
-                day:
-                    "numeric",
-
-                month:
-                    "long"
-
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
             }
-        ).format(
-            new Date()
-        );
+        ).format(today);
+
 }
 
 
@@ -2401,66 +1437,57 @@ function updateTodayBadge() {
    EXPORTAR EXCEL
 ========================================================= */
 
-function exportToExcel() {
+function exportProgress() {
 
-    if (
-        typeof XLSX ===
-        "undefined"
-    ) {
+    if (typeof XLSX === "undefined") {
 
         showToast(
-            "No se pudo cargar el módulo de Excel.",
-            "⚠️"
+            "!",
+            "La función Excel necesita conexión a Internet"
         );
 
         return;
+
     }
 
 
-    const rows =
-        chapters.map(
-            chapter => {
-
-                const day =
-                    findChapterDay(
-                        chapter.id
-                    );
+    const rows = [];
 
 
-                return {
+    readingPlan.forEach(day => {
 
-                    "Libro":
-                        chapter.book,
+        const date =
+            getDayDate(day.day);
 
-                    "Capítulo":
-                        chapter.chapter,
 
-                    "Leído":
-                        chapter.read
-                            ? "Sí"
-                            : "No",
+        day.chapters.forEach(chapter => {
 
-                    "Día del plan":
-                        day,
+            rows.push({
 
-                    "Fecha del plan":
-                        formatShortDate(
-                            getPlanDate(day)
-                        ),
+                "Día":
+                    day.day,
 
-                    "Fecha de inicio":
-                        state.startDate
+                "Fecha":
+                    formatLongDate(date),
 
-                };
+                "Libro":
+                    chapter.book,
 
-            }
-        );
+                "Capítulo":
+                    chapter.chapter,
+
+                "Leído":
+                    chapter.read ? "Sí" : "No"
+
+            });
+
+        });
+
+    });
 
 
     const worksheet =
-        XLSX.utils.json_to_sheet(
-            rows
-        );
+        XLSX.utils.json_to_sheet(rows);
 
 
     const workbook =
@@ -2468,57 +1495,49 @@ function exportToExcel() {
 
 
     XLSX.utils.book_append_sheet(
-
         workbook,
-
         worksheet,
-
         "Progreso"
+    );
 
+
+    const settings = [
+
+        {
+            "Configuración":
+                "Fecha de inicio"
+        },
+
+        {
+            "Configuración":
+                dateToInputValue(startDate)
+        }
+
+    ];
+
+
+    const settingsSheet =
+        XLSX.utils.json_to_sheet(settings);
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        settingsSheet,
+        "Configuración"
     );
 
 
     XLSX.writeFile(
-
         workbook,
-
         "biblia-en-un-ano-progreso.xlsx"
-
     );
 
 
     showToast(
-
-        "Progreso exportado correctamente.",
-
-        "📤"
-
+        "✓",
+        "Progreso exportado correctamente"
     );
-}
 
-
-function findChapterDay(
-    chapterId
-) {
-
-    for (
-        const day of readingPlan
-    ) {
-
-        if (
-            day.chapters.some(
-                chapter =>
-                    chapter.id ===
-                    chapterId
-            )
-        ) {
-
-            return day.day;
-        }
-    }
-
-
-    return "";
 }
 
 
@@ -2526,31 +1545,26 @@ function findChapterDay(
    IMPORTAR EXCEL
 ========================================================= */
 
-function importFromExcel(
-    event
-) {
+function importProgress(event) {
 
     const file =
         event.target.files[0];
 
 
     if (!file) {
-
         return;
     }
 
 
-    if (
-        typeof XLSX ===
-        "undefined"
-    ) {
+    if (typeof XLSX === "undefined") {
 
         showToast(
-            "No se pudo cargar el módulo de Excel.",
-            "⚠️"
+            "!",
+            "La función Excel necesita conexión a Internet"
         );
 
         return;
+
     }
 
 
@@ -2558,253 +1572,197 @@ function importFromExcel(
         new FileReader();
 
 
-    reader.onload =
-        function (e) {
+    reader.onload = function(e) {
 
-            try {
+        try {
 
-                const workbook =
-                    XLSX.read(
-                        e.target.result,
-                        {
-                            type:
-                                "array"
-                        }
+            const data =
+                new Uint8Array(
+                    e.target.result
+                );
+
+
+            const workbook =
+                XLSX.read(
+                    data,
+                    { type: "array" }
+                );
+
+
+            const sheetName =
+                workbook.SheetNames.find(
+                    name =>
+                        name.toLowerCase()
+                            .includes("progreso")
+                ) ||
+                workbook.SheetNames[0];
+
+
+            const worksheet =
+                workbook.Sheets[sheetName];
+
+
+            const rows =
+                XLSX.utils.sheet_to_json(
+                    worksheet
+                );
+
+
+            let imported = 0;
+
+
+            rows.forEach(row => {
+
+                const book =
+                    row["Libro"] ||
+                    row["libro"];
+
+
+                const chapterValue =
+                    row["Capítulo"] ??
+                    row["Capitulo"] ??
+                    row["capítulo"] ??
+                    row["capitulo"];
+
+
+                const readValue =
+                    row["Leído"] ??
+                    row["Leido"] ??
+                    row["leído"] ??
+                    row["leido"];
+
+
+                if (
+                    !book ||
+                    chapterValue === undefined
+                ) {
+                    return;
+                }
+
+
+                const chapterNumber =
+                    Number(chapterValue);
+
+
+                const current =
+                    chapters.find(
+                        chapter =>
+                            chapter.book === book &&
+                            chapter.chapter === chapterNumber
                     );
 
 
-                const sheet =
-                    workbook.Sheets[
-                        workbook.SheetNames[0]
-                    ];
+                if (!current) {
+                    return;
+                }
 
 
-                const rows =
-                    XLSX.utils.sheet_to_json(
-                        sheet
-                    );
+                const normalized =
+                    String(readValue)
+                        .trim()
+                        .toLowerCase();
 
 
-                rows.forEach(
-                    row => {
-
-                        const book =
-                            row["Libro"];
-
-
-                        const chapterNumber =
-                            Number(
-
-                                row["Capítulo"] ??
-                                row["Capitulo"]
-
-                            );
+                current.read =
+                    [
+                        "sí",
+                        "si",
+                        "yes",
+                        "true",
+                        "1",
+                        "x",
+                        "leído",
+                        "leido"
+                    ].includes(normalized);
 
 
-                        const readValue =
-                            String(
+                imported++;
 
-                                row["Leído"] ??
-                                row["Leido"] ??
-                                ""
-
-                            ).toLowerCase();
+            });
 
 
-                        const current =
-                            chapters.find(
+            saveProgress();
 
-                                chapter =>
+            updateAll();
 
-                                    chapter.book ===
-                                        book &&
-
-                                    chapter.chapter ===
-                                        chapterNumber
-
-                            );
+            renderSelectedDay();
+            renderDays();
+            renderBooks(
+                $("bookSearch").value
+            );
 
 
-                        if (current) {
-
-                            current.read =
-                                [
-
-                                    "sí",
-                                    "si",
-                                    "yes",
-                                    "true",
-                                    "1",
-                                    "x",
-                                    "leído",
-                                    "leido"
-
-                                ].includes(
-                                    readValue
-                                );
-                        }
+            showToast(
+                "✓",
+                `${imported} registros importados`
+            );
 
 
-                        if (
-                            row["Fecha de inicio"]
-                        ) {
+        } catch (error) {
 
-                            const imported =
-                                normalizeImportedDate(
-                                    row[
-                                        "Fecha de inicio"
-                                    ]
-                                );
+            console.error(error);
 
+            showToast(
+                "!",
+                "No se pudo importar el archivo"
+            );
 
-                            if (imported) {
+        }
 
-                                state.startDate =
-                                    imported;
-                            }
-
-                        }
-
-                    }
-                );
+    };
 
 
-                saveState();
+    reader.readAsArrayBuffer(file);
 
-                updateAll();
+    event.target.value = "";
 
-
-                showToast(
-
-                    "Progreso importado correctamente.",
-
-                    "📥"
-
-                );
-
-            } catch (error) {
-
-                console.error(
-                    error
-                );
-
-
-                showToast(
-
-                    "No se pudo importar el archivo.",
-
-                    "⚠️"
-
-                );
-            }
-
-
-            event.target.value =
-                "";
-        };
-
-
-    reader.readAsArrayBuffer(
-        file
-    );
 }
 
 
 /* =========================================================
-   NORMALIZAR FECHA IMPORTADA
-========================================================= */
-
-function normalizeImportedDate(
-    value
-) {
-
-    if (!value) {
-
-        return null;
-    }
-
-
-    if (
-
-        typeof value ===
-            "string" &&
-
-        /^\d{4}-\d{2}-\d{2}$/
-            .test(value)
-
-    ) {
-
-        return value;
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return null;
-    }
-
-
-    return dateToInputValue(
-        date
-    );
-}
-
-
-/* =========================================================
-   REINICIAR PROGRESO
+   REINICIAR
 ========================================================= */
 
 function resetProgress() {
 
-    const confirmation =
+    const confirmed =
         confirm(
-
-            "¿Estás seguro de que quieres reiniciar " +
-            "tu progreso de Biblia 365?\n\n" +
-
-            "Esto eliminará los capítulos marcados " +
-            "como leídos, pero mantendrá tu fecha " +
-            "de inicio."
-
+            "¿Estás seguro de que deseas borrar todo tu progreso? Esta acción no se puede deshacer."
         );
 
 
-    if (!confirmation) {
-
+    if (!confirmed) {
         return;
     }
 
 
     chapters.forEach(
         chapter => {
-
-            chapter.read =
-                false;
-
+            chapter.read = false;
         }
     );
 
 
-    saveState();
+    selectedDay = 1;
+
+
+    saveProgress();
 
     updateAll();
 
+    renderSelectedDay();
+    renderDays();
+
+    renderBooks(
+        $("bookSearch").value
+    );
+
 
     showToast(
-
-        "Tu progreso ha sido reiniciado.",
-
-        "↩"
-
+        "↺",
+        "El progreso fue reiniciado"
     );
+
 }
 
 
@@ -2812,56 +1770,64 @@ function resetProgress() {
    TOAST
 ========================================================= */
 
-let toastTimer;
+let toastTimeout;
 
 
-function showToast(
-    message,
-    icon = "✓"
-) {
+function showToast(icon, message) {
 
     const toast =
-        document.getElementById(
-            "toast"
-        );
+        $("toast");
 
 
-    document.getElementById(
-        "toastMessage"
-    ).textContent =
-        message;
-
-
-    document.getElementById(
-        "toastIcon"
-    ).textContent =
+    $("toastIcon").textContent =
         icon;
 
 
-    toast.classList.add(
+    $("toastMessage").textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimeout);
+
+
+    toastTimeout =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 3000);
+
+}
+
+
+/* =========================================================
+   MENÚ MÓVIL
+========================================================= */
+
+function openMobileMenu() {
+
+    $("sidebar").classList.add("open");
+
+    $("sidebarOverlay").classList.add(
         "show"
     );
 
+}
 
-    clearTimeout(
-        toastTimer
+
+function closeMobileMenu() {
+
+    $("sidebar").classList.remove("open");
+
+    $("sidebarOverlay").classList.remove(
+        "show"
     );
 
-
-    toastTimer =
-        setTimeout(
-
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-
-            3000
-
-        );
 }
 
 
@@ -2873,36 +1839,12 @@ function updateAll() {
 
     updateDashboard();
 
-    updateTodaySection();
-
-    renderDays();
-
-    renderSelectedDay();
-
-    renderBooks(
-
-        document.getElementById(
-            "bookSearch"
-        )?.value || ""
-
-    );
-
     renderStatistics();
 
-    updateTodayBadge();
+    renderBooks(
+        $("bookSearch").value
+    );
 
-
-    document.getElementById(
-        "heroStartDate"
-    ).textContent =
-
-        `Fecha de inicio: ${
-            formatDate(
-                parseLocalDate(
-                    state.startDate
-                )
-            )
-        }`;
 }
 
 
@@ -2916,67 +1858,51 @@ function setupEvents() {
     /* Navegación */
 
     document
-        .querySelectorAll(
-            ".nav-item"
-        )
-        .forEach(
-            button => {
+        .querySelectorAll(".nav-item")
+        .forEach(button => {
 
-                button.addEventListener(
-                    "click",
-                    () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                        navigate(
-                            button.dataset.section
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    /* Menú móvil */
-
-    document
-        .getElementById(
-            "menuButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                document
-                    .getElementById(
-                        "sidebar"
-                    )
-                    .classList.toggle(
-                        "open"
+                    navigate(
+                        button.dataset.section
                     );
 
-            }
-        );
+                }
+            );
+
+        });
 
 
     /* Tema */
 
-    document
-        .getElementById(
-            "themeButton"
-        )
+    $("themeButton")
         .addEventListener(
             "click",
             toggleTheme
         );
 
 
+    /* Menú móvil */
+
+    $("menuButton")
+        .addEventListener(
+            "click",
+            openMobileMenu
+        );
+
+
+    $("sidebarOverlay")
+        .addEventListener(
+            "click",
+            closeMobileMenu
+        );
+
+
     /* Continuar */
 
-    document
-        .getElementById(
-            "continueButton"
-        )
+    $("continueButton")
         .addEventListener(
             "click",
             () => {
@@ -2984,21 +1910,13 @@ function setupEvents() {
                 selectedDay =
                     getNextIncompleteDay();
 
-
-                navigate(
-                    "history"
-                );
+                navigate("plan");
 
             }
         );
 
 
-    /* Próxima lectura */
-
-    document
-        .getElementById(
-            "openNextDayButton"
-        )
+    $("openNextDayButton")
         .addEventListener(
             "click",
             () => {
@@ -3006,109 +1924,42 @@ function setupEvents() {
                 selectedDay =
                     getNextIncompleteDay();
 
-
-                navigate(
-                    "history"
-                );
+                navigate("plan");
 
             }
         );
 
 
-    /* Completar lectura de hoy */
+    /* Fecha */
 
-    document
-        .getElementById(
-            "todayCompleteButton"
-        )
+    $("saveStartDateButton")
         .addEventListener(
             "click",
-            () => {
-
-                completeDay(
-                    getScheduledDayToday()
-                );
-
-
-                updateTodaySection();
-
-            }
+            saveStartDate
         );
 
 
-    /* Desmarcar lectura de hoy */
+    /* Día completo */
 
-    document
-        .getElementById(
-            "todayUncompleteButton"
-        )
+    $("completeDayButton")
         .addEventListener(
             "click",
-            () => {
-
-                uncompleteDay(
-                    getScheduledDayToday()
-                );
-
-
-                updateTodaySection();
-
-            }
+            completeSelectedDay
         );
 
 
-    /* Completar día seleccionado */
+    /* Desmarcar */
 
-    document
-        .getElementById(
-            "completeDayButton"
-        )
+    $("uncompleteDayButton")
         .addEventListener(
             "click",
-            () => {
-
-                completeDay(
-                    selectedDay
-                );
-
-
-                renderSelectedDay();
-
-                renderDays();
-
-            }
-        );
-
-
-    /* Desmarcar día seleccionado */
-
-    document
-        .getElementById(
-            "uncompleteDayButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                uncompleteDay(
-                    selectedDay
-                );
-
-
-                renderSelectedDay();
-
-                renderDays();
-
-            }
+            uncompleteSelectedDay
         );
 
 
     /* Buscar libros */
 
-    document
-        .getElementById(
-            "bookSearch"
-        )
+    $("bookSearch")
         .addEventListener(
             "input",
             event => {
@@ -3123,108 +1974,30 @@ function setupEvents() {
 
     /* Exportar */
 
-    document
-        .getElementById(
-            "exportButton"
-        )
+    $("exportButton")
         .addEventListener(
             "click",
-            exportToExcel
+            exportProgress
         );
 
 
     /* Importar */
 
-    document
-        .getElementById(
-            "importFile"
-        )
+    $("importFile")
         .addEventListener(
             "change",
-            importFromExcel
+            importProgress
         );
 
 
     /* Reiniciar */
 
-    document
-        .getElementById(
-            "resetButton"
-        )
+    $("resetButton")
         .addEventListener(
             "click",
             resetProgress
         );
 
-
-    /* Cambiar fecha de inicio */
-
-    document
-        .getElementById(
-            "changeStartDateButton"
-        )
-        .addEventListener(
-            "click",
-            openStartDateModal
-        );
-
-
-    /* Cerrar modal */
-
-    document
-        .getElementById(
-            "closeStartDateModal"
-        )
-        .addEventListener(
-            "click",
-            closeStartDateModal
-        );
-
-
-    /* Guardar fecha */
-
-    document
-        .getElementById(
-            "saveStartDateButton"
-        )
-        .addEventListener(
-            "click",
-            saveStartDate
-        );
-
-
-    /* Previsualización fecha */
-
-    document
-        .getElementById(
-            "startDateInput"
-        )
-        .addEventListener(
-            "input",
-            updateStartDatePreview
-        );
-
-
-    /* Cerrar modal haciendo clic fuera */
-
-    document
-        .getElementById(
-            "startDateModal"
-        )
-        .addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target.id ===
-                    "startDateModal"
-                ) {
-
-                    closeStartDateModal();
-                }
-
-            }
-        );
 }
 
 
@@ -3236,51 +2009,38 @@ function init() {
 
     buildChapters();
 
-    loadState();
-
     buildReadingPlan();
+
+    loadStartDate();
+
+    loadProgress();
 
     loadTheme();
 
     updateTodayBadge();
 
-    setupEvents();
+
+    $("startDateInput").value =
+        dateToInputValue(startDate);
 
 
     /*
-       Usuario nuevo:
-       la fecha de hoy será propuesta
-       como fecha de inicio.
+        Al abrir la aplicación, automáticamente
+        seleccionamos el primer día pendiente.
     */
-
-    if (!state.startDate) {
-
-        state.startDate =
-            dateToInputValue(
-                new Date()
-            );
-
-
-        saveState();
-
-
-        setTimeout(
-            () => {
-
-                openStartDateModal();
-
-            },
-
-            250
-        );
-    }
-
 
     selectedDay =
         getNextIncompleteDay();
 
 
+    setupEvents();
+
     updateAll();
+
+    renderSelectedDay();
+
+    renderDays();
+
 }
 
 

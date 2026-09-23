@@ -3,539 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Biblia 365</title>
-
+    <title>Biblia en un Año</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- SheetJS para importar/exportar Excel -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 
 <body>
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
-
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
 
         <div class="brand">
-
-            <div class="brand-icon">
-                📖
-            </div>
-
+            <div class="brand-icon">✝</div>
             <div>
                 <h1>Biblia 365</h1>
                 <span>Mi plan de lectura</span>
             </div>
-
         </div>
 
+        <nav class="nav-menu">
 
-        <nav class="navigation">
-
-            <button class="nav-item active" data-section="home">
-                <span>🏠</span>
+            <button class="nav-item active" data-section="inicio">
+                <span class="nav-icon">🏠</span>
                 <span>Inicio</span>
             </button>
 
-            <button class="nav-item" data-section="today">
-                <span>📖</span>
-                <span>Lectura de hoy</span>
+            <button class="nav-item" data-section="plan">
+                <span class="nav-icon">📅</span>
+                <span>Plan de lectura</span>
             </button>
 
-            <button class="nav-item" data-section="history">
-                <span>📅</span>
-                <span>Historial de lectura</span>
-            </button>
-
-            <button class="nav-item" data-section="books">
-                <span>📚</span>
+            <button class="nav-item" data-section="libros">
+                <span class="nav-icon">📚</span>
                 <span>Libros</span>
             </button>
 
-            <button class="nav-item" data-section="statistics">
-                <span>📊</span>
+            <button class="nav-item" data-section="estadisticas">
+                <span class="nav-icon">📊</span>
                 <span>Estadísticas</span>
             </button>
 
-            <button class="nav-item" data-section="data">
-                <span>💾</span>
+            <button class="nav-item" data-section="datos">
+                <span class="nav-icon">💾</span>
                 <span>Datos</span>
             </button>
 
         </nav>
 
-
-        <div class="sidebar-footer">
-
+        <div class="sidebar-bottom">
             <button id="themeButton" class="theme-button">
-
                 <span id="themeIcon">🌙</span>
-
-                <span id="themeText">
-                    Modo oscuro
-                </span>
-
+                <span id="themeText">Modo oscuro</span>
             </button>
 
+            <div class="sidebar-quote">
+                <span>“Lámpara es a mis pies tu palabra...”</span>
+                <strong>Salmo 119:105</strong>
+            </div>
         </div>
 
     </aside>
 
+    <!-- MOBILE OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- =====================================================
-         CONTENIDO PRINCIPAL
-    ====================================================== -->
-
+    <!-- MAIN -->
     <main class="main-content">
 
+        <!-- HEADER -->
         <header class="topbar">
 
-            <button
-                id="menuButton"
-                class="menu-button"
-                aria-label="Abrir menú"
-            >
+            <button id="menuButton" class="menu-button">
                 ☰
             </button>
 
-
             <div>
-
-                <h2 id="pageTitle">
-                    Inicio
-                </h2>
-
-                <span id="todayBadge"></span>
-
+                <h2 id="pageTitle">Inicio</h2>
+                <p id="todayBadge"></p>
             </div>
-
-
-            <button
-                id="changeStartDateButton"
-                class="date-button"
-            >
-                📅
-                <span>Fecha de inicio</span>
-            </button>
 
         </header>
 
+        <!-- ========================= -->
+        <!-- INICIO -->
+        <!-- ========================= -->
 
-        <!-- =================================================
-             INICIO
-        ================================================== -->
+        <section id="inicio" class="page-section active-section">
 
-        <section
-            id="homeSection"
-            class="page-section active"
-        >
-
-            <div class="hero">
+            <div class="hero-card">
 
                 <div class="hero-content">
 
-                    <span class="hero-label">
-                        📖 MI CAMINO DE LECTURA
-                    </span>
+                    <span class="eyebrow">BIBLIA EN UN AÑO</span>
 
-                    <h2>
-                        Continúa donde quedaste
-                    </h2>
+                    <h1>Continúa donde quedaste</h1>
 
                     <p>
-                        Lee tu Biblia físicamente y utiliza
-                        Biblia 365 para acompañar y registrar
-                        tu avance.
+                        Lee tu Biblia físicamente y utiliza esta aplicación
+                        únicamente para acompañar y registrar tu avance.
                     </p>
 
-                    <div
-                        class="hero-date"
-                        id="heroStartDate"
-                    >
-                        Fecha de inicio: -
-                    </div>
-
-                    <button
-                        id="continueButton"
-                        class="primary-button"
-                    >
+                    <button id="continueButton" class="primary-button">
                         Continuar lectura →
                     </button>
 
                 </div>
 
-
-                <div class="hero-progress">
-
-                    <div
-                        class="progress-circle"
-                        id="dashboardCircle"
-                    >
-                        <span id="dashboardPercentage">
-                            0%
-                        </span>
-                    </div>
-
-                    <span>
-                        Progreso total
-                    </span>
-
-                </div>
+                <div class="hero-cross">✝</div>
 
             </div>
 
-
-            <div class="stats-grid">
+            <div class="dashboard-grid">
 
                 <div class="stat-card">
-
-                    <span class="stat-icon">
-                        📖
-                    </span>
-
+                    <div class="stat-icon">📖</div>
                     <div>
-                        <strong id="dashboardChapters">
-                            0
-                        </strong>
-
-                        <span>
-                            Capítulos leídos
-                        </span>
+                        <span>Progreso total</span>
+                        <strong id="dashboardPercentage">0%</strong>
                     </div>
-
                 </div>
-
 
                 <div class="stat-card">
-
-                    <span class="stat-icon">
-                        📅
-                    </span>
-
+                    <div class="stat-icon">✅</div>
                     <div>
-                        <strong id="dashboardDays">
-                            0
-                        </strong>
-
-                        <span>
-                            Días completados
-                        </span>
+                        <span>Capítulos leídos</span>
+                        <strong id="dashboardChapters">0 / 1189</strong>
                     </div>
-
                 </div>
-
 
                 <div class="stat-card">
-
-                    <span class="stat-icon">
-                        🔥
-                    </span>
-
+                    <div class="stat-icon">📅</div>
                     <div>
-                        <strong id="dashboardStreak">
-                            0
-                        </strong>
-
-                        <span>
-                            Racha actual
-                        </span>
+                        <span>Días completados</span>
+                        <strong id="dashboardDays">0 / 365</strong>
                     </div>
-
                 </div>
-
 
                 <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div>
+                        <span>Racha actual</span>
+                        <strong id="dashboardStreak">0 días</strong>
+                    </div>
+                </div>
 
-                    <span class="stat-icon">
-                        🎯
+            </div>
+
+            <div class="content-card progress-card">
+
+                <div class="card-heading">
+                    <div>
+                        <span class="eyebrow">TU AVANCE</span>
+                        <h3>Progreso de la Biblia</h3>
+                    </div>
+
+                    <strong id="largePercentage">0%</strong>
+                </div>
+
+                <div class="progress-track large">
+                    <div class="progress-fill" id="mainProgress"></div>
+                </div>
+
+                <div class="progress-details">
+                    <span>
+                        <strong id="progressRead">0</strong> capítulos leídos
                     </span>
 
-                    <div>
-                        <strong id="dashboardCurrentDay">
-                            1
-                        </strong>
+                    <span>
+                        <strong id="progressRemaining">1189</strong> capítulos pendientes
+                    </span>
+                </div>
 
-                        <span>
-                            Día del plan
+            </div>
+
+            <div class="two-column">
+
+                <div class="content-card next-reading-card">
+
+                    <div class="card-heading">
+                        <div>
+                            <span class="eyebrow">PRÓXIMO PASO</span>
+                            <h3 id="nextDayTitle">Día 1</h3>
+                        </div>
+
+                        <span id="nextDayStatus" class="status-badge pending">
+                            Pendiente
                         </span>
                     </div>
 
-                </div>
-
-            </div>
-
-
-            <div class="section-card">
-
-                <div class="section-heading">
-
-                    <div>
-
-                        <span class="section-kicker">
-                            PRÓXIMA LECTURA
-                        </span>
-
-                        <h3 id="nextDayTitle">
-                            Día 1
-                        </h3>
-
-                    </div>
-
-                    <span
-                        id="nextDayStatus"
-                        class="status-badge"
-                    >
-                        Pendiente
-                    </span>
-
-                </div>
-
-
-                <p
-                    id="nextReadingText"
-                    class="reading-text"
-                >
-                    -
-                </p>
-
-
-                <button
-                    id="openNextDayButton"
-                    class="secondary-button"
-                >
-                    Ver lectura →
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             LECTURA DE HOY
-        ================================================== -->
-
-        <section
-            id="todaySection"
-            class="page-section"
-        >
-
-            <div class="page-intro">
-
-                <span class="section-kicker">
-                    📖 TU LECTURA
-                </span>
-
-                <h2 id="todayTitle">
-                    Lectura de hoy
-                </h2>
-
-                <p id="todayDateText">
-                    -
-                </p>
-
-            </div>
-
-
-            <div class="today-card">
-
-                <div class="today-header">
-
-                    <div>
-
-                        <span class="day-label">
-                            DÍA DEL PLAN
-                        </span>
-
-                        <h3 id="todayDayTitle">
-                            Día 1
-                        </h3>
-
-                    </div>
-
-
-                    <span
-                        id="todayStatus"
-                        class="status-badge"
-                    >
-                        Pendiente
-                    </span>
-
-                </div>
-
-
-                <div class="reading-summary">
-
-                    <span>
-                        📖
-                    </span>
-
-                    <strong id="todayReading">
-                        -
-                    </strong>
-
-                </div>
-
-
-                <div class="physical-bible-message">
-
-                    <span>
-                        📕
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Lee en tu Biblia física
-                        </strong>
-
-                        <p>
-                            Biblia 365 no muestra el texto
-                            bíblico. Utiliza esta aplicación
-                            únicamente para acompañar y
-                            registrar tu lectura.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="chapter-list"
-                    id="todayChapterList"
-                ></div>
-
-
-                <div class="action-row">
-
-                    <button
-                        id="todayCompleteButton"
-                        class="primary-button"
-                    >
-                        ✓ Marcar día completo
-                    </button>
-
-                    <button
-                        id="todayUncompleteButton"
-                        class="secondary-button"
-                    >
-                        Desmarcar día
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             HISTORIAL DE LECTURA
-        ================================================== -->
-
-        <section
-            id="historySection"
-            class="page-section"
-        >
-
-            <div class="page-intro">
-
-                <span class="section-kicker">
-                    📅 HISTORIAL
-                </span>
-
-                <h2>
-                    Plan de lectura
-                </h2>
-
-                <p>
-                    Consulta cualquier día de tu recorrido
-                    de 365 días.
-                </p>
-
-            </div>
-
-
-            <div class="plan-summary">
-
-                <div>
-
-                    <strong id="planCompletedCounter">
-                        0 / 365
-                    </strong>
-
-                    <span>
-                        Días completados
-                    </span>
-
-                </div>
-
-
-                <div>
-
-                    <strong id="planStartSummary">
-                        -
-                    </strong>
-
-                    <span>
-                        Inicio del plan
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="days-grid"
-                id="daysGrid"
-            ></div>
-
-
-            <div class="selected-day-card">
-
-                <!-- LA LECTURA AHORA APARECE PRIMERO -->
-
-                <div class="selected-reading-highlight">
-
-                    <span>
-                        📖
-                    </span>
-
-                    <strong id="selectedDayReading">
+                    <p id="nextReadingText" class="next-reading-text">
                         Génesis 1–4
-                    </strong>
+                    </p>
+
+                    <button id="openNextDayButton" class="secondary-button">
+                        Abrir lectura
+                    </button>
 
                 </div>
 
+                <div class="content-card focus-card">
 
-                <div class="selected-day-header">
+                    <span class="eyebrow">ENFOQUE</span>
+
+                    <h3>Una lectura a la vez</h3>
+
+                    <p>
+                        No necesitas correr. Lee tu Biblia con calma,
+                        medita en lo que Dios te está enseñando y registra
+                        aquí tu avance.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- PLAN -->
+        <!-- ========================= -->
+
+        <section id="plan" class="page-section">
+
+            <div class="section-intro">
+
+                <div>
+                    <span class="eyebrow">365 DÍAS</span>
+                    <h2>Plan de lectura</h2>
+
+                    <p>
+                        Selecciona un día para consultar la lectura
+                        correspondiente y registrar tus capítulos.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- FECHA DE INICIO -->
+
+            <div class="start-date-card">
+
+                <div class="start-date-icon">🗓️</div>
+
+                <div class="start-date-content">
+
+                    <span class="eyebrow">CONFIGURACIÓN DEL PLAN</span>
+
+                    <h3>Día de inicio</h3>
+
+                    <p>
+                        El Día 1 comenzará en esta fecha. Los siguientes
+                        días avanzarán automáticamente en el calendario.
+                    </p>
+
+                </div>
+
+                <div class="start-date-controls">
+
+                    <input
+                        type="date"
+                        id="startDateInput"
+                        aria-label="Fecha de inicio"
+                    >
+
+                    <button
+                        id="saveStartDateButton"
+                        class="primary-button small"
+                    >
+                        Guardar fecha
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- REGISTRO DE LECTURA - AL PRINCIPIO -->
+            <!-- ================================= -->
+
+            <div class="selected-reading-card">
+
+                <div class="selected-reading-header">
 
                     <div>
 
-                        <span class="section-kicker">
-                            DÍA SELECCIONADO
-                        </span>
+                        <span class="eyebrow">DÍA SELECCIONADO</span>
 
-                        <h3 id="selectedDayTitle">
+                        <h2 id="selectedDayTitle">
                             Día 1
-                        </h3>
+                        </h2>
 
-                        <p id="selectedDayDate">
-                            -
+                        <p
+                            id="selectedDayDate"
+                            class="selected-day-date"
+                        >
+                            23 de septiembre de 2026
                         </p>
 
                     </div>
-
 
                     <span
                         id="selectedDayStatus"
-                        class="status-badge"
+                        class="status-badge pending"
                     >
                         Pendiente
                     </span>
@@ -543,13 +314,50 @@
                 </div>
 
 
-                <div
-                    class="chapter-list"
-                    id="chapterList"
-                ></div>
+                <div class="selected-reading-main">
+
+                    <div class="reading-icon">
+                        📖
+                    </div>
+
+                    <div>
+
+                        <span class="reading-label">
+                            LECTURA DEL DÍA
+                        </span>
+
+                        <h3 id="selectedDayReading">
+                            Génesis 1–4
+                        </h3>
+
+                    </div>
+
+                </div>
 
 
-                <div class="action-row">
+                <div class="chapter-registration">
+
+                    <div class="registration-heading">
+
+                        <div>
+                            <span class="eyebrow">REGISTRAR LECTURA</span>
+
+                            <h3>
+                                Marca los capítulos que ya leíste
+                            </h3>
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="chapterList"
+                        class="chapter-list"
+                    ></div>
+
+                </div>
+
+
+                <div class="reading-actions">
 
                     <button
                         id="completeDayButton"
@@ -569,217 +377,152 @@
 
             </div>
 
-        </section>
+
+            <!-- ================================= -->
+            <!-- HISTORIAL -->
+            <!-- ================================= -->
+
+            <div class="history-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="eyebrow">HISTORIAL</span>
+
+                        <h3>365 días de lectura</h3>
+
+                        <p>
+                            Selecciona cualquier día para consultar o
+                            modificar su registro.
+                        </p>
+                    </div>
+
+                    <div class="history-counter">
+                        <strong id="planCompletedCounter">0</strong>
+                        <span>días completados</span>
+                    </div>
+
+                </div>
 
 
-        <!-- =================================================
-             LIBROS
-        ================================================== -->
-
-        <section
-            id="booksSection"
-            class="page-section"
-        >
-
-            <div class="page-intro">
-
-                <span class="section-kicker">
-                    📚 BIBLIA
-                </span>
-
-                <h2>
-                    Progreso por libro
-                </h2>
-
-                <p>
-                    Consulta cuánto has avanzado en cada
-                    libro de la Biblia.
-                </p>
+                <div
+                    id="daysGrid"
+                    class="days-grid"
+                ></div>
 
             </div>
 
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- LIBROS -->
+        <!-- ========================= -->
+
+        <section id="libros" class="page-section">
+
+            <div class="section-intro">
+
+                <div>
+                    <span class="eyebrow">BIBLIA</span>
+                    <h2>Libros de la Biblia</h2>
+
+                    <p>
+                        Consulta el progreso de cada libro.
+                    </p>
+                </div>
+
+            </div>
 
             <div class="search-box">
 
-                <span>
-                    🔎
-                </span>
+                <span>🔎</span>
 
                 <input
                     type="text"
                     id="bookSearch"
-                    placeholder="Buscar libro..."
+                    placeholder="Buscar un libro..."
                 >
 
             </div>
 
-
             <div
-                class="books-grid"
                 id="booksGrid"
+                class="books-grid"
             ></div>
 
         </section>
 
 
-        <!-- =================================================
-             ESTADÍSTICAS
-        ================================================== -->
+        <!-- ========================= -->
+        <!-- ESTADÍSTICAS -->
+        <!-- ========================= -->
 
-        <section
-            id="statisticsSection"
-            class="page-section"
-        >
+        <section id="estadisticas" class="page-section">
 
-            <div class="page-intro">
+            <div class="section-intro">
 
-                <span class="section-kicker">
-                    📊 PROGRESO
-                </span>
+                <div>
+                    <span class="eyebrow">TU PROGRESO</span>
+                    <h2>Estadísticas</h2>
 
-                <h2>
-                    Estadísticas
-                </h2>
-
-                <p id="statisticsPeriodText">
-                    -
-                </p>
+                    <p>
+                        Observa cómo avanza tu lectura a lo largo del año.
+                    </p>
+                </div>
 
             </div>
 
 
             <div class="statistics-top">
 
-                <div class="large-progress-card">
+                <div class="content-card circular-card">
 
                     <div
-                        class="large-circle"
-                        id="largeCircle"
+                        id="circleProgress"
+                        class="circular-progress"
                     >
-                        <span id="largePercentage">
-                            0%
-                        </span>
+                        <div class="circle-inner">
+                            <strong id="circlePercentage">0%</strong>
+                            <span>completado</span>
+                        </div>
                     </div>
-
-                    <h3>
-                        Progreso total
-                    </h3>
-
-                    <p>
-                        <span id="statsReadLarge">
-                            0
-                        </span>
-
-                        capítulos leídos de 1,189
-                    </p>
 
                 </div>
 
 
-                <div class="statistics-cards">
+                <div class="stats-summary">
 
                     <div class="stat-card">
-
-                        <span class="stat-icon">
-                            📖
-                        </span>
-
+                        <div class="stat-icon">📖</div>
                         <div>
-
-                            <strong id="statsRead">
-                                0
-                            </strong>
-
-                            <span>
-                                Leídos
-                            </span>
-
+                            <span>Leídos</span>
+                            <strong id="statsRead">0</strong>
                         </div>
-
                     </div>
 
-
                     <div class="stat-card">
-
-                        <span class="stat-icon">
-                            📕
-                        </span>
-
+                        <div class="stat-icon">⏳</div>
                         <div>
-
-                            <strong id="statsRemaining">
-                                1189
-                            </strong>
-
-                            <span>
-                                Restantes
-                            </span>
-
+                            <span>Pendientes</span>
+                            <strong id="statsRemaining">1189</strong>
                         </div>
-
                     </div>
 
-
                     <div class="stat-card">
-
-                        <span class="stat-icon">
-                            📅
-                        </span>
-
+                        <div class="stat-icon">📅</div>
                         <div>
-
-                            <strong id="statsDays">
-                                0
-                            </strong>
-
-                            <span>
-                                Días completados
-                            </span>
-
+                            <span>Días</span>
+                            <strong id="statsDays">0 / 365</strong>
                         </div>
-
                     </div>
 
-
                     <div class="stat-card">
-
-                        <span class="stat-icon">
-                            🔥
-                        </span>
-
+                        <div class="stat-icon">🔥</div>
                         <div>
-
-                            <strong id="statsStreak">
-                                0
-                            </strong>
-
-                            <span>
-                                Racha actual
-                            </span>
-
+                            <span>Racha</span>
+                            <strong id="statsStreak">0 días</strong>
                         </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            📈
-                        </span>
-
-                        <div>
-
-                            <strong id="averageChapters">
-                                0
-                            </strong>
-
-                            <span>
-                                Promedio capítulos/día
-                            </span>
-
-                        </div>
-
                     </div>
 
                 </div>
@@ -787,24 +530,31 @@
             </div>
 
 
-            <div class="section-card">
+            <div class="content-card average-card">
 
-                <div class="section-heading">
+                <div>
+                    <span class="eyebrow">RITMO</span>
+                    <h3>Promedio de lectura</h3>
+                </div>
+
+                <div class="average-number">
+                    <strong id="averageChapters">0</strong>
+                    <span>capítulos por día completado</span>
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <div class="card-heading">
 
                     <div>
-
-                        <span class="section-kicker">
-                            PROGRESO DEL PLAN
-                        </span>
-
-                        <h3>
-                            Avance mensual
-                        </h3>
-
+                        <span class="eyebrow">CALENDARIO</span>
+                        <h3>Progreso mensual</h3>
                     </div>
 
                 </div>
-
 
                 <div
                     id="monthlyProgress"
@@ -816,72 +566,62 @@
         </section>
 
 
-        <!-- =================================================
-             DATOS
-        ================================================== -->
+        <!-- ========================= -->
+        <!-- DATOS -->
+        <!-- ========================= -->
 
-        <section
-            id="dataSection"
-            class="page-section"
-        >
+        <section id="datos" class="page-section">
 
-            <div class="page-intro">
+            <div class="section-intro">
 
-                <span class="section-kicker">
-                    💾 DATOS
-                </span>
+                <div>
+                    <span class="eyebrow">RESPALDO</span>
+                    <h2>Mis datos</h2>
 
-                <h2>
-                    Mis datos
-                </h2>
-
-                <p>
-                    Guarda una copia de tu progreso o
-                    restáuralo cuando lo necesites.
-                </p>
+                    <p>
+                        Guarda o restaura tu progreso de lectura.
+                    </p>
+                </div>
 
             </div>
 
 
             <div class="data-grid">
 
-                <div class="data-card">
+                <div class="content-card data-card">
 
                     <div class="data-icon">
-                        📤
+                        📥
                     </div>
 
-                    <h3>
-                        Exportar progreso
-                    </h3>
+                    <h3>Exportar progreso</h3>
 
                     <p>
-                        Descarga tu progreso en formato Excel.
+                        Descarga tu progreso en formato Excel para
+                        conservar una copia.
                     </p>
 
                     <button
                         id="exportButton"
                         class="primary-button"
                     >
-                        Exportar a Excel
+                        Exportar Excel
                     </button>
 
                 </div>
 
 
-                <div class="data-card">
+                <div class="content-card data-card">
 
                     <div class="data-icon">
-                        📥
+                        📤
                     </div>
 
-                    <h3>
-                        Importar progreso
-                    </h3>
+                    <h3>Importar progreso</h3>
 
                     <p>
-                        Restaura un archivo de progreso
-                        previamente guardado.
+                        Restaura un archivo Excel que hayas exportado
+                        anteriormente.
                     </p>
 
                     <label
@@ -901,19 +641,17 @@
                 </div>
 
 
-                <div class="data-card danger-card">
+                <div class="content-card data-card danger-card">
 
                     <div class="data-icon">
-                        🗑️
+                        ⚠️
                     </div>
 
-                    <h3>
-                        Reiniciar progreso
-                    </h3>
+                    <h3>Reiniciar progreso</h3>
 
                     <p>
-                        Borra únicamente el progreso de
-                        Biblia 365 guardado en este navegador.
+                        Borra todas las lecturas registradas y comienza
+                        nuevamente.
                     </p>
 
                     <button
@@ -927,124 +665,24 @@
 
             </div>
 
-
-            <div class="section-card information-card">
-
-                <h3>
-                    🔐 Sobre tus datos
-                </h3>
-
-                <p>
-                    Biblia 365 guarda tu progreso localmente
-                    en tu navegador. Tus datos no se mezclan
-                    con los de otras personas que utilicen
-                    la aplicación.
-                </p>
-
-                <p>
-                    La fecha de inicio también se guarda
-                    localmente para que las estadísticas
-                    correspondan al año real de tu plan
-                    de lectura.
-                </p>
-
-            </div>
-
         </section>
 
     </main>
 
 
-    <!-- =====================================================
-         MODAL FECHA DE INICIO
-    ====================================================== -->
+    <!-- TOAST -->
 
     <div
-        class="modal-overlay"
-        id="startDateModal"
-    >
-
-        <div class="modal">
-
-            <button
-                class="modal-close"
-                id="closeStartDateModal"
-            >
-                ×
-            </button>
-
-
-            <div class="modal-icon">
-                📅
-            </div>
-
-
-            <span class="section-kicker">
-                MI PLAN BÍBLICO
-            </span>
-
-
-            <h2>
-                ¿Cuándo quieres comenzar?
-            </h2>
-
-
-            <p>
-                Esta fecha será el Día 1 de tu plan
-                de 365 días.
-            </p>
-
-
-            <label for="startDateInput">
-                Fecha de inicio
-            </label>
-
-
-            <input
-                type="date"
-                id="startDateInput"
-            >
-
-
-            <div
-                class="modal-preview"
-                id="startDatePreview"
-            >
-                -
-            </div>
-
-
-            <button
-                id="saveStartDateButton"
-                class="primary-button full-button"
-            >
-                Comenzar mi plan
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         TOAST
-    ====================================================== -->
-
-    <div
-        class="toast"
         id="toast"
+        class="toast"
     >
-
-        <span id="toastIcon">
-            ✓
-        </span>
-
-        <span id="toastMessage">
-            Guardado
-        </span>
-
+        <span id="toastIcon">✓</span>
+        <span id="toastMessage">Guardado</span>
     </div>
 
+
+    <!-- SHEETJS -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
     <script src="app.js"></script>
 

@@ -8,24 +8,31 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- SheetJS para Excel -->
+    <!-- SheetJS para importar/exportar Excel -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 
 <body>
 
-    <!-- =========================
+    <!-- =====================================================
          SIDEBAR
-    ========================== -->
+    ====================================================== -->
+
     <aside class="sidebar" id="sidebar">
 
         <div class="brand">
-            <div class="brand-icon">📖</div>
+
+            <div class="brand-icon">
+                📖
+            </div>
+
             <div>
                 <h1>Biblia 365</h1>
                 <span>Mi plan de lectura</span>
             </div>
+
         </div>
+
 
         <nav class="navigation">
 
@@ -61,74 +68,121 @@
 
         </nav>
 
+
         <div class="sidebar-footer">
+
             <button id="themeButton" class="theme-button">
+
                 <span id="themeIcon">🌙</span>
-                <span id="themeText">Modo oscuro</span>
+
+                <span id="themeText">
+                    Modo oscuro
+                </span>
+
             </button>
+
         </div>
 
     </aside>
 
 
-    <!-- =========================
-         MAIN
-    ========================== -->
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+    ====================================================== -->
+
     <main class="main-content">
 
         <header class="topbar">
 
-            <button id="menuButton" class="menu-button">
+            <button
+                id="menuButton"
+                class="menu-button"
+                aria-label="Abrir menú"
+            >
                 ☰
             </button>
 
+
             <div>
-                <h2 id="pageTitle">Inicio</h2>
+
+                <h2 id="pageTitle">
+                    Inicio
+                </h2>
+
                 <span id="todayBadge"></span>
+
             </div>
 
-            <button id="changeStartDateButton" class="date-button">
-                📅 <span>Fecha de inicio</span>
+
+            <button
+                id="changeStartDateButton"
+                class="date-button"
+            >
+                📅
+                <span>Fecha de inicio</span>
             </button>
 
         </header>
 
 
-        <!-- =========================
+        <!-- =================================================
              INICIO
-        ========================== -->
-        <section id="homeSection" class="page-section active">
+        ================================================== -->
+
+        <section
+            id="homeSection"
+            class="page-section active"
+        >
 
             <div class="hero">
 
                 <div class="hero-content">
 
-                    <span class="hero-label">📖 MI CAMINO DE LECTURA</span>
+                    <span class="hero-label">
+                        📖 MI CAMINO DE LECTURA
+                    </span>
 
-                    <h2>Continúa donde quedaste</h2>
+                    <h2>
+                        Continúa donde quedaste
+                    </h2>
 
                     <p>
-                        Lee tu Biblia físicamente y utiliza Biblia 365
-                        para acompañar y registrar tu avance.
+                        Lee tu Biblia físicamente y utiliza
+                        Biblia 365 para acompañar y registrar
+                        tu avance.
                     </p>
 
-                    <div class="hero-date" id="heroStartDate">
+                    <div
+                        class="hero-date"
+                        id="heroStartDate"
+                    >
                         Fecha de inicio: -
                     </div>
 
-                    <button id="continueButton" class="primary-button">
+                    <button
+                        id="continueButton"
+                        class="primary-button"
+                    >
                         Continuar lectura →
                     </button>
 
                 </div>
 
+
                 <div class="hero-progress">
 
-                    <div class="progress-circle" id="dashboardCircle">
-                        <span id="dashboardPercentage">0%</span>
+                    <div
+                        class="progress-circle"
+                        id="dashboardCircle"
+                    >
+                        <span id="dashboardPercentage">
+                            0%
+                        </span>
                     </div>
 
-                    <span>Progreso total</span>
+                    <span>
+                        Progreso total
+                    </span>
 
                 </div>
 
@@ -138,35 +192,78 @@
             <div class="stats-grid">
 
                 <div class="stat-card">
-                    <span class="stat-icon">📖</span>
+
+                    <span class="stat-icon">
+                        📖
+                    </span>
+
                     <div>
-                        <strong id="dashboardChapters">0</strong>
-                        <span>Capítulos leídos</span>
+                        <strong id="dashboardChapters">
+                            0
+                        </strong>
+
+                        <span>
+                            Capítulos leídos
+                        </span>
                     </div>
+
                 </div>
 
-                <div class="stat-card">
-                    <span class="stat-icon">📅</span>
-                    <div>
-                        <strong id="dashboardDays">0</strong>
-                        <span>Días completados</span>
-                    </div>
-                </div>
 
                 <div class="stat-card">
-                    <span class="stat-icon">🔥</span>
+
+                    <span class="stat-icon">
+                        📅
+                    </span>
+
                     <div>
-                        <strong id="dashboardStreak">0</strong>
-                        <span>Racha actual</span>
+                        <strong id="dashboardDays">
+                            0
+                        </strong>
+
+                        <span>
+                            Días completados
+                        </span>
                     </div>
+
                 </div>
 
+
                 <div class="stat-card">
-                    <span class="stat-icon">🎯</span>
+
+                    <span class="stat-icon">
+                        🔥
+                    </span>
+
                     <div>
-                        <strong id="dashboardCurrentDay">1</strong>
-                        <span>Día del plan</span>
+                        <strong id="dashboardStreak">
+                            0
+                        </strong>
+
+                        <span>
+                            Racha actual
+                        </span>
                     </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span class="stat-icon">
+                        🎯
+                    </span>
+
+                    <div>
+                        <strong id="dashboardCurrentDay">
+                            1
+                        </strong>
+
+                        <span>
+                            Día del plan
+                        </span>
+                    </div>
+
                 </div>
 
             </div>
@@ -175,21 +272,41 @@
             <div class="section-card">
 
                 <div class="section-heading">
+
                     <div>
-                        <span class="section-kicker">PRÓXIMA LECTURA</span>
-                        <h3 id="nextDayTitle">Día 1</h3>
+
+                        <span class="section-kicker">
+                            PRÓXIMA LECTURA
+                        </span>
+
+                        <h3 id="nextDayTitle">
+                            Día 1
+                        </h3>
+
                     </div>
 
-                    <span id="nextDayStatus" class="status-badge">
+                    <span
+                        id="nextDayStatus"
+                        class="status-badge"
+                    >
                         Pendiente
                     </span>
+
                 </div>
 
-                <p id="nextReadingText" class="reading-text">
+
+                <p
+                    id="nextReadingText"
+                    class="reading-text"
+                >
                     -
                 </p>
 
-                <button id="openNextDayButton" class="secondary-button">
+
+                <button
+                    id="openNextDayButton"
+                    class="secondary-button"
+                >
                     Ver lectura →
                 </button>
 
@@ -198,14 +315,20 @@
         </section>
 
 
-        <!-- =========================
+        <!-- =================================================
              LECTURA DE HOY
-        ========================== -->
-        <section id="todaySection" class="page-section">
+        ================================================== -->
+
+        <section
+            id="todaySection"
+            class="page-section"
+        >
 
             <div class="page-intro">
 
-                <span class="section-kicker">📖 TU LECTURA</span>
+                <span class="section-kicker">
+                    📖 TU LECTURA
+                </span>
 
                 <h2 id="todayTitle">
                     Lectura de hoy
@@ -223,42 +346,84 @@
                 <div class="today-header">
 
                     <div>
-                        <span class="day-label">DÍA DEL PLAN</span>
-                        <h3 id="todayDayTitle">Día 1</h3>
+
+                        <span class="day-label">
+                            DÍA DEL PLAN
+                        </span>
+
+                        <h3 id="todayDayTitle">
+                            Día 1
+                        </h3>
+
                     </div>
 
-                    <span id="todayStatus" class="status-badge">
+
+                    <span
+                        id="todayStatus"
+                        class="status-badge"
+                    >
                         Pendiente
                     </span>
 
                 </div>
 
+
                 <div class="reading-summary">
-                    <span>📖</span>
-                    <strong id="todayReading">-</strong>
+
+                    <span>
+                        📖
+                    </span>
+
+                    <strong id="todayReading">
+                        -
+                    </strong>
+
                 </div>
+
 
                 <div class="physical-bible-message">
-                    <span>📕</span>
+
+                    <span>
+                        📕
+                    </span>
+
                     <div>
-                        <strong>Lee en tu Biblia física</strong>
+
+                        <strong>
+                            Lee en tu Biblia física
+                        </strong>
+
                         <p>
-                            Biblia 365 no muestra el texto bíblico.
-                            Utiliza esta aplicación únicamente para
-                            acompañar y registrar tu lectura.
+                            Biblia 365 no muestra el texto
+                            bíblico. Utiliza esta aplicación
+                            únicamente para acompañar y
+                            registrar tu lectura.
                         </p>
+
                     </div>
+
                 </div>
 
-                <div class="chapter-list" id="todayChapterList"></div>
+
+                <div
+                    class="chapter-list"
+                    id="todayChapterList"
+                ></div>
+
 
                 <div class="action-row">
 
-                    <button id="todayCompleteButton" class="primary-button">
+                    <button
+                        id="todayCompleteButton"
+                        class="primary-button"
+                    >
                         ✓ Marcar día completo
                     </button>
 
-                    <button id="todayUncompleteButton" class="secondary-button">
+                    <button
+                        id="todayUncompleteButton"
+                        class="secondary-button"
+                    >
                         Desmarcar día
                     </button>
 
@@ -269,70 +434,134 @@
         </section>
 
 
-        <!-- =========================
-             HISTORIAL
-        ========================== -->
-        <section id="historySection" class="page-section">
+        <!-- =================================================
+             HISTORIAL DE LECTURA
+        ================================================== -->
+
+        <section
+            id="historySection"
+            class="page-section"
+        >
 
             <div class="page-intro">
 
-                <span class="section-kicker">📅 HISTORIAL</span>
+                <span class="section-kicker">
+                    📅 HISTORIAL
+                </span>
 
-                <h2>Plan de lectura</h2>
+                <h2>
+                    Plan de lectura
+                </h2>
 
                 <p>
-                    Consulta cualquier día de tu recorrido de 365 días.
+                    Consulta cualquier día de tu recorrido
+                    de 365 días.
                 </p>
 
             </div>
+
 
             <div class="plan-summary">
 
                 <div>
-                    <strong id="planCompletedCounter">0 / 365</strong>
-                    <span>Días completados</span>
+
+                    <strong id="planCompletedCounter">
+                        0 / 365
+                    </strong>
+
+                    <span>
+                        Días completados
+                    </span>
+
                 </div>
 
+
                 <div>
-                    <strong id="planStartSummary">-</strong>
-                    <span>Inicio del plan</span>
+
+                    <strong id="planStartSummary">
+                        -
+                    </strong>
+
+                    <span>
+                        Inicio del plan
+                    </span>
+
                 </div>
 
             </div>
 
 
-            <div class="days-grid" id="daysGrid"></div>
+            <div
+                class="days-grid"
+                id="daysGrid"
+            ></div>
 
 
             <div class="selected-day-card">
 
+                <!-- LA LECTURA AHORA APARECE PRIMERO -->
+
+                <div class="selected-reading-highlight">
+
+                    <span>
+                        📖
+                    </span>
+
+                    <strong id="selectedDayReading">
+                        Génesis 1–4
+                    </strong>
+
+                </div>
+
+
                 <div class="selected-day-header">
 
                     <div>
-                        <span class="section-kicker">DÍA SELECCIONADO</span>
-                        <h3 id="selectedDayTitle">Día 1</h3>
-                        <p id="selectedDayDate">-</p>
+
+                        <span class="section-kicker">
+                            DÍA SELECCIONADO
+                        </span>
+
+                        <h3 id="selectedDayTitle">
+                            Día 1
+                        </h3>
+
+                        <p id="selectedDayDate">
+                            -
+                        </p>
+
                     </div>
 
-                    <span id="selectedDayStatus" class="status-badge">
+
+                    <span
+                        id="selectedDayStatus"
+                        class="status-badge"
+                    >
                         Pendiente
                     </span>
 
                 </div>
 
-                <p id="selectedDayReading" class="reading-text">
-                    -
-                </p>
 
-                <div class="chapter-list" id="chapterList"></div>
+                <div
+                    class="chapter-list"
+                    id="chapterList"
+                ></div>
+
 
                 <div class="action-row">
 
-                    <button id="completeDayButton" class="primary-button">
+                    <button
+                        id="completeDayButton"
+                        class="primary-button"
+                    >
                         ✓ Marcar día completo
                     </button>
 
-                    <button id="uncompleteDayButton" class="secondary-button">
+                    <button
+                        id="uncompleteDayButton"
+                        class="secondary-button"
+                    >
                         Desmarcar día
                     </button>
 
@@ -343,26 +572,38 @@
         </section>
 
 
-        <!-- =========================
+        <!-- =================================================
              LIBROS
-        ========================== -->
-        <section id="booksSection" class="page-section">
+        ================================================== -->
+
+        <section
+            id="booksSection"
+            class="page-section"
+        >
 
             <div class="page-intro">
 
-                <span class="section-kicker">📚 BIBLIA</span>
+                <span class="section-kicker">
+                    📚 BIBLIA
+                </span>
 
-                <h2>Progreso por libro</h2>
+                <h2>
+                    Progreso por libro
+                </h2>
 
                 <p>
-                    Consulta cuánto has avanzado en cada libro de la Biblia.
+                    Consulta cuánto has avanzado en cada
+                    libro de la Biblia.
                 </p>
 
             </div>
 
+
             <div class="search-box">
 
-                <span>🔎</span>
+                <span>
+                    🔎
+                </span>
 
                 <input
                     type="text"
@@ -372,21 +613,33 @@
 
             </div>
 
-            <div class="books-grid" id="booksGrid"></div>
+
+            <div
+                class="books-grid"
+                id="booksGrid"
+            ></div>
 
         </section>
 
 
-        <!-- =========================
+        <!-- =================================================
              ESTADÍSTICAS
-        ========================== -->
-        <section id="statisticsSection" class="page-section">
+        ================================================== -->
+
+        <section
+            id="statisticsSection"
+            class="page-section"
+        >
 
             <div class="page-intro">
 
-                <span class="section-kicker">📊 PROGRESO</span>
+                <span class="section-kicker">
+                    📊 PROGRESO
+                </span>
 
-                <h2>Estadísticas</h2>
+                <h2>
+                    Estadísticas
+                </h2>
 
                 <p id="statisticsPeriodText">
                     -
@@ -399,15 +652,25 @@
 
                 <div class="large-progress-card">
 
-                    <div class="large-circle" id="largeCircle">
-                        <span id="largePercentage">0%</span>
+                    <div
+                        class="large-circle"
+                        id="largeCircle"
+                    >
+                        <span id="largePercentage">
+                            0%
+                        </span>
                     </div>
 
-                    <h3>Progreso total</h3>
+                    <h3>
+                        Progreso total
+                    </h3>
 
                     <p>
-                        <span id="statsRead">0</span> capítulos leídos
-                        de 1,189
+                        <span id="statsReadLarge">
+                            0
+                        </span>
+
+                        capítulos leídos de 1,189
                     </p>
 
                 </div>
@@ -416,43 +679,107 @@
                 <div class="statistics-cards">
 
                     <div class="stat-card">
-                        <span class="stat-icon">📖</span>
+
+                        <span class="stat-icon">
+                            📖
+                        </span>
+
                         <div>
-                            <strong id="statsRead">0</strong>
-                            <span>Leídos</span>
+
+                            <strong id="statsRead">
+                                0
+                            </strong>
+
+                            <span>
+                                Leídos
+                            </span>
+
                         </div>
+
                     </div>
 
-                    <div class="stat-card">
-                        <span class="stat-icon">📕</span>
-                        <div>
-                            <strong id="statsRemaining">1189</strong>
-                            <span>Restantes</span>
-                        </div>
-                    </div>
 
                     <div class="stat-card">
-                        <span class="stat-icon">📅</span>
+
+                        <span class="stat-icon">
+                            📕
+                        </span>
+
                         <div>
-                            <strong id="statsDays">0</strong>
-                            <span>Días completados</span>
+
+                            <strong id="statsRemaining">
+                                1189
+                            </strong>
+
+                            <span>
+                                Restantes
+                            </span>
+
                         </div>
+
                     </div>
 
-                    <div class="stat-card">
-                        <span class="stat-icon">🔥</span>
-                        <div>
-                            <strong id="statsStreak">0</strong>
-                            <span>Racha actual</span>
-                        </div>
-                    </div>
 
                     <div class="stat-card">
-                        <span class="stat-icon">📈</span>
+
+                        <span class="stat-icon">
+                            📅
+                        </span>
+
                         <div>
-                            <strong id="averageChapters">0</strong>
-                            <span>Promedio capítulos/día</span>
+
+                            <strong id="statsDays">
+                                0
+                            </strong>
+
+                            <span>
+                                Días completados
+                            </span>
+
                         </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            🔥
+                        </span>
+
+                        <div>
+
+                            <strong id="statsStreak">
+                                0
+                            </strong>
+
+                            <span>
+                                Racha actual
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <span class="stat-icon">
+                            📈
+                        </span>
+
+                        <div>
+
+                            <strong id="averageChapters">
+                                0
+                            </strong>
+
+                            <span>
+                                Promedio capítulos/día
+                            </span>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -463,34 +790,54 @@
             <div class="section-card">
 
                 <div class="section-heading">
+
                     <div>
+
                         <span class="section-kicker">
                             PROGRESO DEL PLAN
                         </span>
-                        <h3>Avance mensual</h3>
+
+                        <h3>
+                            Avance mensual
+                        </h3>
+
                     </div>
+
                 </div>
 
-                <div id="monthlyProgress" class="monthly-progress"></div>
+
+                <div
+                    id="monthlyProgress"
+                    class="monthly-progress"
+                ></div>
 
             </div>
 
         </section>
 
 
-        <!-- =========================
+        <!-- =================================================
              DATOS
-        ========================== -->
-        <section id="dataSection" class="page-section">
+        ================================================== -->
+
+        <section
+            id="dataSection"
+            class="page-section"
+        >
 
             <div class="page-intro">
 
-                <span class="section-kicker">💾 DATOS</span>
+                <span class="section-kicker">
+                    💾 DATOS
+                </span>
 
-                <h2>Mis datos</h2>
+                <h2>
+                    Mis datos
+                </h2>
 
                 <p>
-                    Guarda una copia de tu progreso o restáuralo cuando lo necesites.
+                    Guarda una copia de tu progreso o
+                    restáuralo cuando lo necesites.
                 </p>
 
             </div>
@@ -500,15 +847,22 @@
 
                 <div class="data-card">
 
-                    <div class="data-icon">📤</div>
+                    <div class="data-icon">
+                        📤
+                    </div>
 
-                    <h3>Exportar progreso</h3>
+                    <h3>
+                        Exportar progreso
+                    </h3>
 
                     <p>
                         Descarga tu progreso en formato Excel.
                     </p>
 
-                    <button id="exportButton" class="primary-button">
+                    <button
+                        id="exportButton"
+                        class="primary-button"
+                    >
                         Exportar a Excel
                     </button>
 
@@ -517,15 +871,23 @@
 
                 <div class="data-card">
 
-                    <div class="data-icon">📥</div>
+                    <div class="data-icon">
+                        📥
+                    </div>
 
-                    <h3>Importar progreso</h3>
+                    <h3>
+                        Importar progreso
+                    </h3>
 
                     <p>
-                        Restaura un archivo de progreso previamente guardado.
+                        Restaura un archivo de progreso
+                        previamente guardado.
                     </p>
 
-                    <label for="importFile" class="secondary-button file-button">
+                    <label
+                        for="importFile"
+                        class="secondary-button file-button"
+                    >
                         Seleccionar archivo
                     </label>
 
@@ -541,16 +903,23 @@
 
                 <div class="data-card danger-card">
 
-                    <div class="data-icon">🗑️</div>
+                    <div class="data-icon">
+                        🗑️
+                    </div>
 
-                    <h3>Reiniciar progreso</h3>
+                    <h3>
+                        Reiniciar progreso
+                    </h3>
 
                     <p>
-                        Borra únicamente el progreso de Biblia 365
-                        guardado en este navegador.
+                        Borra únicamente el progreso de
+                        Biblia 365 guardado en este navegador.
                     </p>
 
-                    <button id="resetButton" class="danger-button">
+                    <button
+                        id="resetButton"
+                        class="danger-button"
+                    >
                         Reiniciar progreso
                     </button>
 
@@ -561,18 +930,22 @@
 
             <div class="section-card information-card">
 
-                <h3>🔐 Sobre tus datos</h3>
+                <h3>
+                    🔐 Sobre tus datos
+                </h3>
 
                 <p>
-                    Biblia 365 guarda tu progreso localmente en tu navegador.
-                    Tus datos no se mezclan con los de otras personas que
-                    utilicen la aplicación.
+                    Biblia 365 guarda tu progreso localmente
+                    en tu navegador. Tus datos no se mezclan
+                    con los de otras personas que utilicen
+                    la aplicación.
                 </p>
 
                 <p>
-                    La fecha de inicio también se guarda localmente para
-                    que las estadísticas correspondan al año real de tu
-                    plan de lectura.
+                    La fecha de inicio también se guarda
+                    localmente para que las estadísticas
+                    correspondan al año real de tu plan
+                    de lectura.
                 </p>
 
             </div>
@@ -582,41 +955,69 @@
     </main>
 
 
-    <!-- =========================
+    <!-- =====================================================
          MODAL FECHA DE INICIO
-    ========================== -->
-    <div class="modal-overlay" id="startDateModal">
+    ====================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="startDateModal"
+    >
 
         <div class="modal">
 
-            <button class="modal-close" id="closeStartDateModal">
+            <button
+                class="modal-close"
+                id="closeStartDateModal"
+            >
                 ×
             </button>
 
-            <div class="modal-icon">📅</div>
 
-            <span class="section-kicker">MI PLAN BÍBLICO</span>
+            <div class="modal-icon">
+                📅
+            </div>
 
-            <h2>¿Cuándo quieres comenzar?</h2>
+
+            <span class="section-kicker">
+                MI PLAN BÍBLICO
+            </span>
+
+
+            <h2>
+                ¿Cuándo quieres comenzar?
+            </h2>
+
 
             <p>
-                Esta fecha será el Día 1 de tu plan de 365 días.
+                Esta fecha será el Día 1 de tu plan
+                de 365 días.
             </p>
+
 
             <label for="startDateInput">
                 Fecha de inicio
             </label>
+
 
             <input
                 type="date"
                 id="startDateInput"
             >
 
-            <div class="modal-preview" id="startDatePreview">
+
+            <div
+                class="modal-preview"
+                id="startDatePreview"
+            >
                 -
             </div>
 
-            <button id="saveStartDateButton" class="primary-button full-button">
+
+            <button
+                id="saveStartDateButton"
+                class="primary-button full-button"
+            >
                 Comenzar mi plan
             </button>
 
@@ -625,12 +1026,18 @@
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================================
          TOAST
-    ========================== -->
-    <div class="toast" id="toast">
+    ====================================================== -->
 
-        <span id="toastIcon">✓</span>
+    <div
+        class="toast"
+        id="toast"
+    >
+
+        <span id="toastIcon">
+            ✓
+        </span>
 
         <span id="toastMessage">
             Guardado
